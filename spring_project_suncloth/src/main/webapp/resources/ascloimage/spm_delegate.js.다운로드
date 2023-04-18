@@ -1,0 +1,100 @@
+
+
+if(window.spmUseBanner == true && snap_spm_getCookie("noDelegateBanner") != "FALSE" && snap_spm_getCookie("noDelegateWebBanner") != "FALSE" && sf_get_pagetype() == "sq_main_page" && is_support_brower){
+
+  if(document.getElementById("spm-delegate-banner") == null){
+    var spmBanner = document.createElement("div");
+    spmBanner.setAttribute("id","spm-delegate-banner");
+    spmBanner.innerHTML = delegateBannerHTML;
+    document.body.appendChild(spmBanner);
+  }else{
+    var spmBanner = document.getElementById("spm-delegate-banner");
+  }
+
+  var device = sf_spm_init.sf_get_value('sf_draw_type');
+  var storeID = sf_spm_init.sf_get_value('sf_store_name');
+
+  var delegateBanner = document.createElement("li");
+  delegateBanner.setAttribute("id","spm-channel-fcm");
+  if(window.spmIsWebView){
+    spmUserID = "";
+    if(sf_get_value('sf_draw_type') == "pc"){
+      spmUserID = snap_spm_get_spmuserid_pc();
+    }else if(sf_get_value('sf_draw_type') == "mobile"){
+      spmUserID = snap_spm_get_spmuserid_m();
+    }
+
+    if(window.delegateBannerLogin == true && sf_get_user_id() == null){
+      delegateBanner.innerHTML = '<a href="javascript:delgateBannerLoginCheck();"><img src="'+window.spmDelegateBannerImage+'"></a>';
+    }else{
+      delegateBanner.innerHTML = '<a href="intent://push.snapfit.co.kr/DelegateWebPush/index/'+storeID+'/'+device+'/'+spmUserID+'#Intent;scheme=https;package=com.android.chrome;end"><img src="'+window.spmDelegateBannerImage+'"></a>';
+    }
+  }else{
+    if(window.delegateBannerLogin == true && sf_get_user_id() == null){
+      delegateBanner.innerHTML = '<a href="javascript:delgateBannerLoginCheck();"><img src="'+window.spmDelegateBannerImage+'"></a>';
+    }else{
+      delegateBanner.innerHTML = '<a href="https://push.snapfit.co.kr/DelegateWebPush/index/'+storeID+'/'+device+'" target="_blank"><img src="'+window.spmDelegateBannerImage+'"></a>';
+    }
+  }
+
+  if(document.querySelector("#spm-channel-kakao") == null){
+    delegateBanner.className = "active";
+  }else{
+      var spmCurrentViewBanner = "kakao";
+      function spmSmallBannerClick(obj){
+        if(spmCurrentViewBanner != obj){
+          if(obj == "fcm"){
+            document.getElementById("spm-channel-fcm").className = "active";
+            document.getElementById("spm-channel-kakao").className = "";
+          }else if(obj == "kakao"){
+            document.getElementById("spm-channel-fcm").className = "";
+            document.getElementById("spm-channel-kakao").className = "active";
+          }
+        }
+
+        spmCurrentViewBanner = obj;
+      }
+
+      setInterval(function(){
+        if(spmCurrentViewBanner == "kakao") spmSmallBannerClick("fcm");
+        else if(spmCurrentViewBanner == "fcm") spmSmallBannerClick("kakao");
+      },5000);
+
+      var webFushIco = document.createElement("span");
+      webFushIco.innerHTML = '<a id="small-banner-delegate" href="#" onclick="spmSmallBannerClick(\'fcm\')"><img src="'+window.spmDelegateBannerIcon+'" width="70px"></a>';
+      document.querySelector("#spm-delegate-banner-ico div").appendChild(webFushIco);
+
+      var kakaoIco = document.createElement("span");
+      kakaoIco.innerHTML = '<a id="small-banner-kakao" data-slide-index="1" href="#" onclick="spmSmallBannerClick(\'kakao\')"><img src="'+window.spmKakaoBannerIcon+'" width="70px"></a>';
+      document.querySelector("#spm-delegate-banner-ico div").appendChild(kakaoIco);
+  }
+
+
+    if(is_support_brower == true){
+      document.querySelector("#spm-delegate-banner-main ul").appendChild(delegateBanner);
+    }
+
+}else if(snap_spm_getCookie("noDelegateBanner") != "FALSE" && is_support_brower && sf_get_pagetype() == "sq_main_page"){
+  if(document.getElementById("spm_ico") == null){
+    var spmButton = document.createElement("div");
+    spmButton.setAttribute("id","spm_ico");
+    document.body.appendChild(spmButton);
+  }else{
+    var spmButton = document.getElementById("spm_ico");
+  }
+
+  var device = sf_spm_init.sf_get_value('sf_draw_type');
+  var storeID = sf_spm_init.sf_get_value('sf_store_name');
+
+  var delegateButton = document.createElement("div");
+  delegateButton.setAttribute("id","spm_delegate_ico");
+  if(window.delegateBannerLogin == true && sf_get_user_id() == null){
+    delegateButton.innerHTML = '<a href="javascript:delgateBannerLoginCheck();"><img src="'+window.spmDelegateBannerIcon+'"></a>';
+  }else{
+    delegateButton.innerHTML = '<a href="https://push.snapfit.co.kr/DelegateWebPush/index/'+storeID+'/'+device+'" target="_blank"><img src="'+window.spmDelegateBannerIcon+'"></a>';
+  }
+
+  if(is_support_brower == true){
+    spmButton.appendChild(delegateButton);
+  }
+}

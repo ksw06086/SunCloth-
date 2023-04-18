@@ -1,0 +1,69 @@
+#road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #topnamesub{
+    	text-align: center;
+    	font-size: .75em;
+    	color:#ccc;
+    }
+    
+    form{
+    	margin: 20px 0px 150px;
+    }
+    
+    fieldset{
+    	width: 450px;
+    	margin: 0 auto;
+    	border: 1px solid #ccc;
+    }
+    
+    fieldset table{
+    	width: 85%;
+		
+    }
+    
+    fieldset table tr td{
+    	text-align: left;
+    	font-size: .75em;
+    }
+    
+    #findbtn{
+    	width: 100%;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+    }
+    
+    #guest, #GHfind1, #findNum{
+    	display: static;
+    }
+    
+    .formal, #Numcheck{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: 1px solid #ccc;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    background-color: #fff;
+	    transition: all 0.15s ease;
+    }

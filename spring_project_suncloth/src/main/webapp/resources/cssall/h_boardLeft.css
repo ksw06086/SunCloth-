@@ -1,0 +1,32 @@
+@charset "UTF-8";
+#tableft{
+		background-color:white;
+		border-right:1px solid #ccc;
+		vertical-align:top;
+		padding:0px;
+	}
+	
+	#left{
+		width:100%;
+		border-collapse:collapse;
+		padding:0px;
+		margin:0px;
+	}
+	
+	#menu{
+		width:100%;
+		border:none;
+		margin:0px;
+		padding:0px;
+	}
+	
+	#menu tr td{
+		padding:10px 12px;
+		border-bottom:1px solid #ccc;
+		font-size:.8em;
+	}
+	
+	#menu tr:nth-child(1) td{
+		border-bottom:2px solid #ccc;
+		font-size:1em;
+	}

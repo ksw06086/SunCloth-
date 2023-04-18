@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <annotation-driven />
+
+    <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    <resources mapping="/resources/**" location="/resources/"/>
+
+    <resources mapping="/suncloth/**" location="/WEB-INF/views/suncloth/" />
+
+    <!-- 시큐리티 추가 1 -->
+    <!-- jsp 파일 설정할 때 이걸로 해줍니당~~~ -->
+    <!--    <resources mapping="/include/**" location="/WEB-INF/views/include/" />-->
+    <!-- 시큐리티 추가 1 -->
+
+    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <beans:property name="prefix" value="/WEB-INF/views/" />
+        <beans:property name="suffix" value=".jsp" />
+    </beans:bean>
+
+    <!-- 프로젝트 패키지이름 확인 -->
+    <context:component-scan base-package="com.spring.project" />
+
+    <!-- mail bean : 구글은 22.05부터 막혀서 네이버로 메일 연동함 -->
+    <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <beans:property name="host" value="smtp.naver.com" />
+        <beans:property name="port" value="587" />
+        <beans:property name="username" value="k-sunwo@naver.com" />
+        <beans:property name="password" value="ksw096935" />
+        <beans:property name="defaultEncoding" value="utf-8" />
+        <beans:property name="javaMailProperties">
+            <beans:props>
+                <beans:prop key="mail.debug">true</beans:prop>
+                <beans:prop key="mail.smtp.ssl.protocols">TLSv1.2</beans:prop>
+                <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+                <beans:prop key="mail.smtps.ssl.checkserveridentity">true</beans:prop>
+                <beans:prop key="mail.smtp.auth">true</beans:prop>
+                <beans:prop key="mail.smtps.ssl.trust">*</beans:prop>
+                <beans:prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+
+    <!-- 시큐리티 추가 2 -->
+    <!-- @Secured 어노테이션 활성화, 사용권한을 제한 -->
+    <!-- Namespaces 탭에서 먼저 security 체크후 작성, 단  버전은 spring-security.xsd로 변경 -->
+    <!--    <security:global-method-security secured-annotations="enabled"/>-->
+
+    <!-- 시큐리티 추가 2 -->
+
+</beans:beans>

@@ -1,0 +1,74 @@
+@charset "UTF-8";
+#title{
+		background-color: #fff;
+		margin: 25px 40px;
+		padding: 15px 15px;
+		width: 92%;
+	}
+	
+	#titletop tr td:nth-child(2){
+		text-align:right;
+	}
+	
+	#titlebtm tr td{
+		text-align:right;
+	}
+	
+	#sub{
+		background-color: #fff;
+		margin: 25px 40px;
+		padding: 15px 15px;
+		width: 92%;
+	}
+	
+	#subtop tr td:nth-child(2){
+		text-align:right;
+	}
+	
+	#subtop{
+		margin-bottom:10px;
+	}
+	
+	#subbtm tr th{
+		background-color:#ABB2B9;
+		color:#fff;
+		font-size:1em;
+		padding:5px 0px;
+	}
+	
+	#subbtm tr td{
+		text-align:right;
+		padding: 5px;
+	}
+	
+	#subbtm tr:nth-child(even){
+		background-color:#EAECEE;
+	}
+	
+	#subbtm tr td:nth-child(1){
+		text-align:left;
+	}
+	
+	#review{
+		background-color: #fff;
+		margin: 25px 40px;
+		padding: 30px 30px;
+		width: 90%;
+		height:300px;
+	}
+	
+	#reviewlist tr:nth-child(1) td:nth-child(1){
+		font-size:20px;
+		font-weight:bold;
+		text-align:left;
+	}
+	
+	#reviewlist tr:nth-child(1) td:nth-child(2){
+		text-align:right;
+	}
+	
+	#reviewlist tr td{
+		font-size:1em;
+		text-align:center;
+		padding: 10px 0px;
+	}

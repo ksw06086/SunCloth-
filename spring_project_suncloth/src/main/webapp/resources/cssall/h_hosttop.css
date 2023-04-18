@@ -1,0 +1,72 @@
+@charset "UTF-8";
+a{
+		text-decoration:none;
+		color:#000;
+	}
+	body{
+		background-color: #F2F4F4;
+		margin:auto 0px;
+		padding:0px;
+	}
+	#middle{
+		border-collapse:collapse;
+		width:100%;
+	}
+	
+	table{
+		width:100%;
+	}
+	
+	header{
+		background-color:#000;
+		height: 50px;
+	}
+	
+	header table{
+		font-size: .8em;
+	}
+	
+	header table tr td{
+		padding: 12px 0px 0px;
+	}
+	
+	header table tr td:nth-child(1){
+		text-align:center;
+		color:#ccc;
+	}
+	
+	header table tr td:nth-child(2){
+		color:#fff;
+	}
+	
+	header table tr td:nth-child(3){
+		text-align:right;
+		padding-right:20px;
+	}
+	
+	header table tr td:nth-child(3) a{
+		color:#fff;
+	}
+	
+	#search_btn {
+		background: url("../ascloimage/icon_search.png") no-repeat;
+		background-size:cover;
+		cursor: pointer;
+		border: none;
+		width: 20px;
+		height: 18px;
+	}
+	
+	nav{
+		border-bottom:1px solid #ccc;
+		background-color:#fff;
+	}
+	
+	nav table tr td{
+		text-align:center;
+		padding: 10px 0px;
+	}
+	
+	nav table tr td:nth-child(1){
+		font-size: 40px;
+	}

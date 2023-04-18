@@ -1,0 +1,151 @@
+@keyframes slidy {
+	0% { left: 0%; }
+	10% { left: 0%; }
+	20% { left: -100%; }
+	30% { left: -100%; }
+	40% { left: -200%; }
+	50% { left: -200%; }
+	60% { left: -300%; }
+	70% { left: -300%; }
+	80% { left: -400%; }
+	90% { left: -400%; }
+	100% { left: -500%; }
+}
+
+.imgslide { 
+	overflow: hidden;
+	margin: 0 auto;
+	padding: 20px 0px;
+	width: 50%;
+}
+
+.imgslide figure a{ width: 20%; float: left; width: 16.666667%;}
+
+.imgslide figure {
+	position: relative;
+	width: 600%;
+	margin: 0;
+	top:0;
+	left: 0;
+	text-align: left;
+	font-size: 0;
+	-webkit-animation: 20s slidy ease-in-out infinite;
+	animation: 20s slidy ease-in-out infinite;
+}
+
+#threemenu{
+    text-align: center;
+}
+    
+#threemenu ul li{
+   	display:inline-block;
+}
+   
+.list ul li{
+   	display: inline-block;
+   	padding: 0px 50px 10px;
+}
+   
+.list ul li:hover, .list ul li:focus{
+   	font-weight: bold;
+       border-bottom:3px solid #000000;
+   	
+}
+   
+.weekly{
+   	background: #F2F3F4;
+   	text-align:center;
+}
+   
+   .head1{
+   	padding: 30px 0px 0px;
+   }
+   
+   .weekly label{
+   	display: inline-block;
+   	padding: 0px 30px 10px;
+   }
+   
+   .weekly label:hover{
+   	font-weight: bold;
+       border-bottom:3px solid #000000;
+   }
+   
+   
+   
+   .oneblock{
+   	display:inline-block;
+   }
+   
+   .oneblock ul{
+   	padding:0px;
+   }
+   
+   .oneblock ul li{
+   	display:inline-block;
+   }
+
+
+.weekly section {
+		display: none;
+           padding: 20px 0 0;}
+           
+           
+label {
+           text-align: center;
+        }
+
+   label:hover {
+           cursor: pointer;}
+
+       /*input 클릭시, label 스타일*/
+
+  	#tab1:checked ~ #outermenu,
+   #tab2:checked ~ #topmenu,
+   #tab3:checked ~ #Shirtmenu,
+   #tab4:checked ~ #Knitmenu,
+   #tab5:checked ~ #Bottommenu,
+   #tab6:checked ~ #Suitmenu,
+   #tab7:checked ~ #ACCmenu {
+   	display:block;
+  	}
+   #tab1,#tab2,#tab3,#tab4,#tab5,#tab6,#tab7{
+   	display:none;
+   	float: center;
+   }
+
+#tab1:checked + label,
+   #tab2:checked + label,
+   #tab3:checked + label,
+   #tab4:checked + label,
+   #tab5:checked + label,
+   #tab6:checked + label,
+   #tab7:checked + label {
+   	font-weight: bold;
+       border-bottom:3px solid #000000;
+   }
+   
+   p {
+   	text-align: center;
+   	font-size: 0.8em;
+   	line-height:20px;
+   }
+   
+   table{
+   	margin: 0 auto;
+   }
+   
+   .divs table tr td{
+   	padding: 0;
+   	text-align:center;
+   }
+   
+   table tr td a{
+   	padding:0px;
+   	text-decoration: none;
+   	color: #000;
+   }
+   
+   #image12 {
+   	text-align: center;
+   }

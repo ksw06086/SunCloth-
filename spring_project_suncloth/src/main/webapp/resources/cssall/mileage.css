@@ -1,0 +1,83 @@
+#road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #topnamesub{
+    	text-align: center;
+    	font-size: .75em;
+    	color:gray;
+    }
+    
+    #paymenu{
+    	margin: 20px 0px 150px;
+    }
+    
+    #paylist{
+    	width: 100%;
+    	border: 1px solid #ccc;
+    	font-size: .8em;
+    }
+    
+    #paylist tr td:nth-child(2){
+    	border-right:1px solid #ccc;
+    }
+    
+    #paylist tr td:nth-child(2), #paylist tr td:nth-child(4){
+    	text-align: right;
+    }
+    
+    #paylist tr td{
+    	padding: 5px 30px;
+    	
+    }
+    
+    #btmmenu{
+    	width:100%;
+    	background-color: #fff;
+    	border-collapse:collapse;
+    	border-right:1px solid #ccc;
+    	border-left:1px solid #ccc;
+    	border-top:1px solid #ccc;
+    	border-bottom:1px solid #F4F6F6;
+    	text-align: center;
+    	font-size: .8em;
+    	margin: 20px 0px;
+    }
+    
+    #btmmenu tr td{
+    	padding: 15px 0px;
+    }
+    
+    .menu{
+    	width:100%;
+    	border-collapse:collapse;
+    	text-align:center;
+    	border-bottom:1px solid #ccc;
+    	border-top:1px solid #ccc;
+    	font-size: .8em;
+    	margin:10px 0px;
+    }
+    
+    .menu tr:nth-child(1) td{
+    	padding: 15px 0px;
+    }
+    
+    .menu tr td{
+    	border-bottom:1px solid #ccc;
+    }
+    
+    
+    .listnum{
+    	text-align:center;
+    	margin: 20px 0px 50px;
+    }

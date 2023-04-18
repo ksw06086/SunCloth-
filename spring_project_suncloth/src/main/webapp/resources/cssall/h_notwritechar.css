@@ -1,0 +1,81 @@
+#righttop{
+		position:relative;
+		text-align:center;
+		width:100%;
+		margin: 15px 0px;
+	}
+	
+	#righttop p{
+		margin:0px;
+		padding:0px;
+		font-size:1.5em;
+	}
+	
+	#righttop p:nth-child(2){
+		position:absolute;
+		top:0px;
+		right:20px;
+	}
+	
+	#save{
+    	width: 100px;
+    	color: white;
+    	background-color: #7FB3D5;
+    	border: none;
+    	padding: 10px;
+	}
+
+	
+	#product{
+		background-color: white;
+		width:97%;
+		margin:0px auto;
+	}
+	
+	#persontop{
+		width:97%;
+		margin:0px auto;
+		background-color:white;
+	}
+	
+	#persontop tr td{
+		padding:15px 10px;
+	}
+	
+	#person{
+		width:97%;
+		margin:0px auto;
+		background-color:white;
+		border-top:1px solid #ccc;
+		border-bottom:1px solid #ccc;
+		border-collapse:collapse;
+	}
+	
+	#person tr td{
+		padding:15px 10px;
+		border-bottom:1px solid #ccc;
+		font-size:.8em;
+	}
+	
+	#person tr:nth-child(1) td:nth-child(1){
+		background-color:#EAECEE;
+		font-weight:bold;
+	}
+	
+	#srch, #srchdel{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: 1px solid gray;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    background-color: #ccc;
+	    transition: all 0.15s ease;
+    }

@@ -1,0 +1,51 @@
+body{
+		width: 40%;
+		hegiht: 60%;
+		margin: 0px;
+	}
+    
+    #header{
+    	background-color: gray;
+    	color:white;
+    	font-size: .8em;
+    	padding: 10px 20px;
+    }
+    
+    
+    
+    
+    select{
+    	font-size: .9em;
+    	width:80%;
+    }
+    
+    
+    #accountChange table {
+    	width: 100%;
+    	border-collapse : collapse;
+    	border-top: 1px solid #ccc;
+    	font-size: .7em;
+    	margin: 15px 15px;
+    }
+    
+    #accountChange table td{
+    	border-bottom: 1px solid #ccc;
+    	padding:8px 0px 8px 8px;
+    }
+    
+    #accountChange table td:first-child{
+    	border-right: 1px solid #ccc;
+    }
+    
+    input[type = "text"], input[type = "password"], select, input[type = "date"]{
+    	padding:4px 0px;
+    }
+    
+    #recive{
+    	width:120px;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+    	font-size: .8em;
+    }

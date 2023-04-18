@@ -1,0 +1,66 @@
+@charset "UTF-8";
+body{
+		width: 400px;
+		margin: 0px;
+	}	
+	li{
+        list-style:none;
+	}
+	div{
+		display:block;
+	}
+    
+    #header{
+    	width:100%;
+    	background-color: gray;
+    	color:white;
+    	font-size: .8em;
+    	padding: 10px 20px;
+    }
+    
+    
+    
+    
+    select{
+    	font-size: .9em;
+    	width:70%;
+    }
+    
+    
+    #accountChange table {
+    	width: 100%;
+    	border-collapse : collapse;
+    	border-top: 1px solid #ccc;
+    	font-size: .7em;
+    	margin: 15px 15px;
+    }
+    
+    #accountChange table td{
+    	border-bottom: 1px solid #ccc;
+    	padding:8px 0px 8px 8px;
+    }
+    
+    #accountChange table td:first-child{
+    	border-right: 1px solid #ccc;
+    }
+    
+    input[type = "text"], input[type = "password"], select, input[type = "date"]{
+    	padding:4px 0px;
+    }
+    
+    #change{
+    	width:100px;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+    	font-size: .8em;
+    }
+    
+    #cancel{
+    	width:100px;
+    	padding: 10px 0px;
+    	background: #fff;
+    	border: 1px solid #ccc;
+    	font-size: .8em;
+    }

@@ -1,0 +1,68 @@
+#topnamesub{
+    	margin-top: 30px;
+    	text-align: center;
+    	font-size: .75em;
+    }
+    
+    #road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    form{
+    	margin: 20px 0px 150px;
+    }
+    
+    fieldset{
+    	width: 500px;
+    	margin: 0 auto;
+    	border: 1px solid #ccc;
+    }
+    
+    fieldset table{
+    	width: 100%;
+		
+    }
+    
+    #headtext tr td, #summary tr td{
+    	text-align: left;
+    	font-size: .75em;
+    }
+    
+    #btn tr td{
+    	text-align: center;
+    	font-size: .75em;
+    }
+    
+    #findbtn{
+    	width: 100px;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+    	font-size:.8em;
+    }
+    
+    #thankstext{
+    	margin-top: 50px;
+    	text-align: center;
+    	font-size: .75em;
+    	color:gray;
+    }
+    
+    #findpwd{
+    	width:100px;
+    	padding: 10px 0px;
+    	background: #fff;
+    	border: 1px solid #ccc;
+    	font-size:.8em;
+    }

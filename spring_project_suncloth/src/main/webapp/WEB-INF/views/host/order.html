@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	a{
+		text-decoration:none;
+		color:#000;
+	}
+	
+	body{
+		background-color: #F2F4F4;
+		margin:auto 0px;;
+		padding:0px;
+	}
+	
+	#middle{
+		border-collapse:collapse;
+		width:100%;
+	}
+	
+	#tableft{
+		background-color:white;
+		border-right:1px solid #ccc;
+		vertical-align:top;
+		padding:0px;
+	}
+	
+	#left{
+		width:100%;
+		border-collapse:collapse;
+		padding:0px;
+		margin:0px;
+	}
+	
+	#menu{
+		width:100%;
+		border:none;
+		margin:0px;
+		padding:0px;
+	}
+	
+	#menu tr td{
+		padding:10px 12px;
+		border-bottom:1px solid #ccc;
+		font-size:.8em;
+	}
+	
+	#menu tr:nth-child(1) td{
+		border-bottom:2px solid #ccc;
+		font-size:1em;
+	}
+	
+	#righttop{
+		position:relative;
+		text-align:center;
+		width:100%;
+		margin: 15px 0px;
+	}
+	
+	#righttop p{
+		margin:0px;
+		padding:0px;
+		font-size:1.5em;
+	}
+	
+	#righttop p:nth-child(2){
+		position:absolute;
+		top:0px;
+		right:20px;
+	}
+	
+	#prdinput{
+    	width: 150px;
+    	color: white;
+    	background-color: #7FB3D5;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#searchifs{
+		width:97%;
+		margin:0px auto;
+		background-color:white;
+		border-top:1px solid #000;
+		border-bottom:1px solid #000;
+		border-collapse:collapse;
+	}
+	
+	#searchifs tr td{
+		padding:15px 10px;
+		border-bottom:1px solid #ccc;
+		font-size:.8em;
+	}
+	
+	#searchifs tr td:nth-child(1){
+		background-color:#EAECEE;
+		font-weight:bold;
+	}
+	
+	 #daytypeoption input[type = "radio"]{
+    	display: none;
+    }
+    
+    #daytypeoption{
+    	vertical-align:middle;
+    }	
+
+	#daytypeoption tr, #daytypeoption tr td{
+		padding:0px;
+		margin:0px;
+		border:1px solid #000;
+	}
+
+	#daytypeoption tr td{
+		padding: 5px;
+	}
+	
+	#srhbtnp{
+		width:100%;
+		text-align:center;
+		margin:40px 0px 15px;
+	}
+	
+	#srhbtn{
+		width: 200px;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#result{
+		background-color: white;
+		width:97%;
+		margin:0px auto;
+	}
+	
+	#resulttop tr td{
+		padding:20px 15px 12px;
+	}
+	
+	#orderlist{
+    	text-align: center;
+    	font-size: .75em;
+    	width: 98%;
+    	margin:0px auto;
+    	background-color:#EAECEE;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    	border-collapse:collapse;
+    }
+    
+    #title{
+    	font-weight:bold;
+    	border:none;
+    }
+    
+    #title td{
+    	padding:25px 15px;
+    	border:none;
+    }
+    
+    .statemanu{
+    	font-size:1.2em;
+    	background-color:#fff;
+    }
+    
+    #statemanu1, #statemanu2, #statemanu3,
+    #statemanu4, #statemanu5, #statemanu6,
+    #statemanu7{
+    	display:none;
+    }
+    
+    
+    .orderprd{
+    	background-color:white;
+    }
+    
+    .orderprd td{
+    	border-top:1px solid #ccc;
+    	padding:10px 15px;
+    }
+    
+    #checknotstock, #checkdel{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: none;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: white;
+	    background-color: #000;
+	    transition: all 0.15s ease;
+    }
+    
+    #ordercancel{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: none;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: white;
+	    background-color: #BDC3C7;
+	    transition: all 0.15s ease;
+    }
+    
+    #delistart{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: none;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: white;
+	    background-color: #D35400;
+	    transition: all 0.15s ease;
+    }
+    
+    #buycomplete{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: none;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: white;
+	    background-color: #3498DB;
+	    transition: all 0.15s ease;
+    }
+    
+    .refundgo{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: none;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: white;
+	    background-color: #A569BD;
+	    transition: all 0.15s ease;
+    }
+    
+    #delete{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: 1px solid;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    background-color: #fff;
+	    transition: all 0.15s ease;
+    }
+</style>
+</head>
+<body>
+<section>
+	<table id = "middle">
+		<col style = "width:15%;">
+		<col>
+		<tr>
+			<td id = "tableft">
+				<div id = "left">
+					<table id = "menu">
+						<tr>
+							<td><b>·주문</b></td>
+						</tr>
+						<tr>
+							<td>&emsp;<a href = "order.html">주문관리</a></td>
+						</tr>
+						<tr>
+							<td>&emsp;<a href = "refund.html">환불관리</a></td>
+						</tr>
+					</table>
+				</div>
+			</td>
+			<td id = "tabright">
+				<div id = "righttop">
+					<p><b>주문관리</b></p>
+				</div>
+				<table id = "searchifs">
+					<col style = "width:15%;">
+					<col>
+					<tr>
+						<td>주문일</td>
+			     		<td><span><select id = "orderstate" style = "padding: 3px; font-size: 1em; vertical-align:middle;">
+				     			<option value = "allorder">등록일</option>
+				     			<option value = "paybefore">수정일</option>
+				     		</select></span>
+			     			<span><input type = "date" id = "firstday" value = "" style = "vertical-align:middle;">&nbsp;&nbsp;-&nbsp;&nbsp;
+			     			<input type = "date" id = "lastday" value = "" style = "vertical-align:middle;"></span>
+			     			<span><table id = "daytypeoption" style = "display: inline;">
+			     				<tr>
+			     					<td><input type = "radio" name = "daytype" id = "today" value = "today" checked>
+			     					<label for = "today">오늘</label></td>
+			     					<td><input type = "radio" name = "daytype" id = "week" value = "week">
+			     					<label for = "week">1주일</label></td>
+			     					<td><input type = "radio" name = "daytype" id = "month1" value = "month1">
+			     					<label for = "month1">1개월</label></td>
+			     					<td><input type = "radio" name = "daytype" id = "month3" value = "month3">
+			     					<label for = "month3">3개월</label></td>
+			     					<td><input type = "radio" name = "daytype" id = "month6" value = "month6">
+			     					<label for = "month6">6개월</label></td>
+			     				</tr>
+			     			</table></span>
+			     		</td>
+			     	</tr>
+			     	
+			     	<tr>
+						<td>주문상태</td>
+						<td>
+						<input type = "checkbox" name = "state" id = "orderfinish" value = "new">
+    					<label for = "orderfinish">주문완료</label>&emsp;
+    					<input type = "checkbox" name = "state" id = "deliready" value = "new">
+    					<label for = "deliready">배송준비중</label>&emsp;
+    					<input type = "checkbox" name = "state" id = "deliing" value = "new">
+    					<label for = "deliing">배송중</label>&emsp;
+    					<input type = "checkbox" name = "state" id = "delifinish" value = "new">
+    					<label for = "delifinish">배송완료</label><br>
+    					<input type = "checkbox" name = "state" id = "refundready" value = "new">
+    					<label for = "refundready">환불신청</label>&emsp;
+    					<input type = "checkbox" name = "state" id = "refundfinish" value = "new">
+    					<label for = "refundfinish">환불완료</label>&emsp;
+    					<input type = "checkbox" name = "state" id = "ordercancel" value = "new">
+    					<label for = "ordercancel">주문취소</label>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>결제수단</td>
+						<td>
+						<input type = "checkbox" name = "pay" id = "cardpay" value = "new">
+    					<label for = "cardpay">신용카드</label>&emsp;
+    					<input type = "checkbox" name = "pay" id = "accpay" value = "new">
+    					<label for = "accpay">관리자 통장</label>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>판매환경</td>
+						<td>
+						<input type = "checkbox" name = "windows" id = "pc" value = "new">
+    					<label for = "pc">PC</label>&emsp;
+    					<input type = "checkbox" name = "windows" id = "mobile" value = "new">
+    					<label for = "mobile">MOBILE</label>
+						</td>
+					</tr>
+					
+					<tr>
+			     		<td>회원구분</td>
+			     		<td>
+    					<input type = "radio" name = "members" id = "all" value = "all">
+    					<label for = "all">전체</label>&emsp;
+    					<input type = "radio" name = "members" id = "member" value = "member">
+    					<label for = "member">회원</label>&emsp;
+    					<input type = "radio" name = "members" id = "bemember" value = "bemember">
+    					<label for = "bemember">비회원</label>
+    					</td>
+    				</tr>
+    				
+    				<tr>
+						<td>검색어</td>
+						<td>
+						<select id = "type" style = "padding:2px; vertical-align:middle;">
+							<option value = "">주문번호</option>
+							<option value = "">주문자</option>
+							<option value = "">입금자</option>
+							<option value = "">아이디</option>
+							<option value = "">상품명</option>
+							<option value = "">상품번호</option>
+						</select>
+						<input type = "search" id = "srch" name = "srch" style = "vertical-align:middle;">
+						</td>
+					</tr>
+				</table>
+				
+				<p id = "srhbtnp"><input type = "button" value = "검색" id = "srhbtn"></p>
+				
+				<div id = "result">
+					<table id = "resulttop">
+						<td>검색 
+						<b><span style = "color:blue;">0</span></b>개
+						/ 총 <b><span style = "color:#ccc;">0</span></b>개</td>
+						<td>
+						<select id = "count" style = "padding:3px;">
+							<option value = "">10개씩 출력</option>
+							<option value = "">30개씩 출력</option>
+							<option value = "">50개씩 출력</option>
+						</select>
+						</td>
+					</table>
+					
+					<table id = "orderlist">
+				    	<col style = "width:1%;">
+				    	<col style = "width:8%;">
+				    	<col style = "width:10%;">
+				    	<col style = "width:8%;">
+				    	<col>
+				    	<col style = "width:10%;">
+				    	<col style = "width:10%;">
+				    	<col style = "width:10%;">
+				    	<col style = "width:10%;">
+				    	<col style = "width:10%;">
+				    	<tr id = "title">
+				    		<td>선택</td>
+				    		<td>번호</td>
+				    		<td>주문일시</td>
+				    		<td>환경</td>
+				    		<td>주문번호</td>
+				    		<td>주문상품</td>
+				    		<td>주문자</td>
+				    		<td>결제수단</td>
+				    		<td>결제금액</td>
+				    		<td>결제일시</td>
+				    	</tr>
+				    	<tr class = "statemanu" id = "statemanu1">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "allcheck"  value = "전체선택"></td>
+				    		<td>
+							<input type = "button" value = "주문취소" name = "ordercancel" id = "ordercancel"></td>
+							<td colspan = "6"><b>주문완료</b>
+							</td>
+							<td colspan = "2"></td>
+				    	</tr>
+				    	<tr class = "statemanu" id = "statemanu2">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "allcheck"  value = "전체선택"></td>
+				    		<td>
+							<input type = "button" value = "배송시작" name = "delistart" id = "delistart">
+							</td>
+							<td colspan = "6"><b>배송준비중</b>
+							</td>
+							<td colspan = "2"></td>
+				    	</tr>
+				    	<tr class = "statemanu" id = "statemanu3">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "allcheck"  value = "전체선택"></td>
+				    		<td>
+							</td>
+							<td colspan = "6"><b>배송중</b>
+							</td>
+							<td colspan = "2"></td>
+				    	</tr>
+				    	<tr class = "statemanu" id = "statemanu4">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "allcheck"  value = "전체선택"></td>
+				    		<td>
+							<input type = "button" value = "구매확정" name = "buycomplete" id = "buycomplete">
+							</td>
+							<td colspan = "6"><b>배송완료</b>
+							</td>
+							<td colspan = "2"></td>
+				    	</tr>
+				    	<tr class = "statemanu" id = "statemanu5">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "allcheck"  value = "전체선택"></td>
+				    		<td>
+							<input type = "button" value = "환불메뉴가기" name = "refundgo" class = "refundgo">
+							</td>
+							<td colspan = "6"><b>환불신청</b>
+							</td>
+							<td colspan = "2"></td>
+				    	</tr>
+				    	<tr class = "statemanu" id = "statemanu6">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "allcheck"  value = "전체선택"></td>
+				    		<td>
+				    		<input type = "button" value = "환불메뉴가기" name = "refundgo" class = "refundgo">
+							</td>
+							<td  colspan = "6"><b>환불완료</b>
+							</td>
+							<td colspan = "2"></td>
+				    	</tr>
+				    	<tr class = "statemanu" id = "statemanu7">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "allcheck"  value = "전체선택"></td>
+				    		<td>
+							<input type = "button" value = "삭제하기" name = "delete" id = "delete">
+							</td>
+							<td colspan = "6"><b>주문취소</b>
+							</td>
+							<td colspan = "2"></td>
+				    	</tr>
+				    	<tr class = "orderprd">
+				    		<td><input type = "checkbox" name = "prdcheck" id = "check1"  value = "prd1"></td>
+				    		<td>13</td>
+				    		<td>2019/02/03 14:15:23</td>
+				    		<td><img src = "../ascloimage/pc.png" width = "15px" height = "15px"></td>
+				    		<td>20191102-000007
+				    		</td>
+				    		<td>장원영의 옷</td>
+				    		<td>김선우<br>(ksw1234/<br>
+				    		일반회원)</td>
+				    		<td>관리자 통장</td>
+				    		<td>
+				    		<b>KRW 76,000</b>
+				    		</td>
+				    		<td></td>
+				    	</tr>
+				    </table>
+				    
+				    <table id = "buttons" style = "width:98%; padding: 10px 0px 0px; margin:0 auto;">
+				    	<tr>
+				    		<td style = "text-align:center; padding: 15px;"> < &emsp;&emsp; 1 &emsp; &emsp;> </td>
+				    	</tr>
+				    </table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</section>
+</body>
+</html>

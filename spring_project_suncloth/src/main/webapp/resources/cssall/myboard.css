@@ -1,0 +1,84 @@
+#road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #QnA{
+    	text-align:center;
+    	font-size: .8em;
+    }
+    
+    #QnA table tr td, #QnA table tr th{
+    	padding: 10px 0px;
+    }
+    
+    #QnA table tr td:nth-child(3){
+    	text-align:left;
+    }
+    
+    .listnum{
+    	text-align:center;
+    	margin: 20px 0px 20px;
+    }
+    
+    .oneandone table{
+    	border-bottom:1px solid #ccc;
+    	border-top:1px solid #ccc;
+    }
+    
+    .oneandone .firsttr ~ tr td{
+    	border-top:1px solid rgba(204, 204, 204 ,0.3);
+    }
+    
+    .oneandone .firsttr td{
+    	border-top:1px solid #ccc;
+    }
+    
+    #likehtml{
+    	margin: 30px 0px 50px;
+    	width:100%;
+    }
+    
+    #likehtml table{
+    	text-align: center;
+    	font-size:.9em;
+    	width: 100%;
+    }
+    
+    #likehtml table td{
+    	padding: 10px 0px;
+    	border:1px solid #ccc;
+    }
+    
+    #write{
+    	width:80px;
+    	padding: 10px 0px;
+    	background: #fff;
+    	border: 1px solid #ccc;
+    	position:absolute;
+    	right:0px;
+    }
+    
+    #detaillist{
+    	width: 100%;
+    }
+    
+    #detaillist table{
+    	margin: 0px auto 150px;
+		border-collapse: collapse;
+		font-size: .75em;
+		text-align: center;
+    }
+    
+    #detaillist table tr td{
+    	padding: 10px 0px;
+    }

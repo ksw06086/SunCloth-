@@ -1,0 +1,1607 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.project.repository.MemberRepository">
+	<!-- UserAuthenticationService의 loadUserByUsername에서 체크....
+	스프링 시큐리티에서 체크하는 필드로 별칭을 줌, 테이블의 암호화된 비밀번호와 사용자가 입력한 비밀번호를 내부로직으로 비교처리된다. -->
+	<select id="selectUser" resultType="java.util.Map"> <!-- #{map의 key} -->
+		select id as username, pwd as password, name, enabled, authority from users 
+		 where id = #{id}
+	</select>
+
+	<!-- product 갯수들 -->
+	<select id="getSelectproductCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from mvc_cloths_tbl
+		<if test="searchType == 0">
+			where name like '%' || #{searchText} || '%'
+		</if>
+ 	</select>
+ 	
+ 	<select id="getproductCnt" resultType="int">
+ 		select count(*) as cnt from mvc_cloths_tbl
+ 	</select>
+ 	
+ 	<!-- product 리스트 -->
+	<select id="getproductList" parameterType="java.util.Map" resultType="com.spring.project.dto.clothDTO">
+ 		select num, name, content, mediumcode, tex, brandnum, icon, plus,
+		saleprice, buyprice, deliday, deliprice, mainfile, file1, file2,
+		file3, file4, file5, withprdnum, reg_date, 
+		bname bigpartname, mname mediumpartname, brandname from
+		(select num, name, content, mediumcode, tex, brandnum, icon, plus,
+		saleprice, buyprice, deliday, deliprice, mainfile, file1, file2,
+		file3, file4, file5, withprdnum, reg_date,
+		bname, mname, brandname, rownum rNum
+		from (SELECT c.*, b.bigname bname, m.mediumname mname, brand.name brandname
+		FROM mvc_cloths_tbl c, bigpart b, mediumpart m, mvc_brand_tbl brand
+		 where c.mediumcode = m.mediumcode
+		and m.bigcode = b.bigcode
+		and c.brandnum = brand.num
+		<if test="searchType == 0">
+			and c.name like '%' || #{searchText} || '%'
+		</if>
+		order by c.num desc)
+		)
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+ 	<select id="getprdList" parameterType="java.util.Map" resultType="com.spring.project.dto.clothDTO">
+ 		<![CDATA[
+ 		select num, name, icon, saleprice, mainfile from 
+		(select num, name, icon, saleprice, mainfile, rownum rNum 
+		from (SELECT distinct c.num, c.name, c.icon, c.saleprice, c.mainfile
+				 FROM mvc_cloths_tbl c, mvc_stock_tbl s
+				where c.num = s.prdnum
+ 				and s.state = '판매중'
+				and c.mediumcode in (select m.mediumcode from mediumpart m, bigpart b 
+										where m.bigcode = b.bigcode
+										and b.bigname = #{name})
+				order by 1 desc)
+		)
+		where rNum >= #{start} and rNum <= #{end}
+		]]>
+ 	</select>
+ 	
+ 	<select id="productlist" resultType="com.spring.project.dto.clothDTO">
+ 		<![CDATA[
+ 		select num, name, icon, saleprice, mainfile from 
+		(select num, name, icon, saleprice, mainfile, rownum rNum 
+		from (SELECT *
+		FROM mvc_cloths_tbl)
+		order by 1 desc)
+		]]>
+ 	</select>
+
+	<select id="idCheck" parameterType="java.util.Map" resultType="int">
+		select count(*) from 
+ 		<if test="member == 0">
+		mvc_guest_tbl
+		</if>
+		<if test="member != 0">
+		users
+		</if>
+		where id = #{strId}
+ 	</select>
+ 	
+ 	<insert id="insertMember" parameterType="java.util.Map">
+ 		<if test="member == 0">
+		insert into mvc_guest_tbl values (#{vo.id},#{vo.pwd},#{vo.name},#{vo.address},#{vo.address1},#{vo.address2, jdbcType=VARCHAR},#{vo.homephone, jdbcType=VARCHAR},0,#{vo.hp},#{vo.email},#{vo.birth},#{vo.birthtype},#{vo.acchost},#{vo.bank},#{vo.acc},#{vo.reg_date},0,null,0,null)
+		</if>
+		<if test="member != 0">
+		insert into users(id, pwd, phone, name, email, authority, enabled)
+		values(#{vo.id}, #{vo.pwd}, #{vo.hp}, #{vo.name}, #{vo.email}, #{vo.authority}, 1)
+		</if>
+ 	</insert>
+
+ 	<select id="idPwdCheck" parameterType="java.util.Map" resultType="int">
+		select count(*) from 
+ 		<if test="member == 0">
+		mvc_guest_tbl
+		where id = #{id}
+		and pwd = #{pwd}
+		</if>
+		<if test="member != 0">
+		users
+		where id = #{id}
+		and pwd = #{pwd}
+		</if>
+ 	</select>
+ 	
+ 	<update id="visit" parameterType="java.lang.String">
+ 		update mvc_guest_tbl set visitcnt = visitcnt + 1 where id = #{strid}
+ 	</update>
+	
+ 	<delete id="deleteMember" parameterType="java.lang.String">
+		delete mvc_guest_tbl where id = #{strid}
+ 	</delete>
+ 	
+ 	<select id="getMemberInfo" parameterType="java.lang.String" resultType="com.spring.project.dto.MemberDTO">
+ 		select * from mvc_guest_tbl where id = #{strid}
+ 	</select>
+ 	
+ 	<update id="updateMember" parameterType="com.spring.project.dto.MemberDTO">
+ 		update mvc_guest_tbl set pwd = #{pwd}, name = #{name}, 
+		address = #{address}, address1 = #{address1}, address2 = #{address2, jdbcType=VARCHAR}, homephone = #{homephone, jdbcType=VARCHAR}, 
+		hp = #{hp}, email = #{email}, birth = #{birth}, birthtype = #{birthtype}, acchost = #{acchost}, 
+		bank = #{bank}, acc = #{acc} where id = #{id}
+ 	</update>
+	
+ 	<select id="getArticleCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) from
+ 		<if test="choose == 1">
+		mvc_notice_tbl
+		</if>
+		<if test="choose == 2">
+		mvc_FAQ_tbl
+		</if>
+		<if test="choose == 3">
+		mvc_QnA_tbl
+		</if>
+		<if test="choose == 4">
+		mvc_review_tbl
+		</if>
+ 	</select>
+
+	<select id="getnoticeArticle" parameterType="int" resultType="com.spring.project.dto.noticeDTO">
+ 		select * from( 
+		select h.*, a.subject asubject, b.subject bsubject FROM
+		mvc_notice_tbl h, mvc_notice_tbl a, mvc_notice_tbl b
+		where h.nextnum = a.num(+)
+		and h.fwnum = b.num(+)
+		union all
+		select num, id, subject, content, reg_date, file1, readcnt, fwnum, nextnum, null atsubject, null bsubject FROM
+		mvc_notice_tbl)
+		where num = #{num}
+		order by asubject desc, bsubject desc, num asc
+ 	</select>
+ 	
+ 	<select id="getFAQArticle" parameterType="int" resultType="com.spring.project.dto.FAQDTO">
+ 		select * from( 
+		select h.*, a.subject asubject, b.subject bsubject FROM
+		mvc_FAQ_tbl h, mvc_FAQ_tbl a, mvc_FAQ_tbl b
+		where h.nextnum = a.num(+)
+		and h.fwnum = b.num(+) 
+		union all
+		select num, id, state, subject, content, reg_date, fwnum, nextnum, null atsubject, null bsubject FROM
+		mvc_FAQ_tbl)
+		where num = #{num}
+		order by asubject desc, bsubject desc, num asc
+ 	</select>
+ 	
+ 	<select id="getQnAArticle" parameterType="int" resultType="com.spring.project.dto.QnADTO">
+ 		select num, id writer, state, pwd, subject, content, file1, textType, ref, ref_step, ref_level,
+			   reg_date, ip, writestate, fwnum, nextnum, asubject, bsubject, atexttype, btexttype
+ 		from(
+		select h.*, a.subject asubject, b.subject bsubject, a.texttype atexttype, b.texttype btexttype FROM
+		mvc_QnA_tbl h, mvc_QnA_tbl a, mvc_QnA_tbl b
+		where h.nextnum = a.num(+)
+		and h.fwnum = b.num(+)
+		union all
+		select num, id, state, pwd, subject, content,
+		file1, textType, ref, ref_step, ref_level, 
+		reg_date, ip, writestate, fwnum, nextnum, null asubject, null bsubject, null atexttype, null btexttype FROM
+		mvc_QnA_tbl)
+		where num = #{num}
+		order by asubject desc, bsubject desc, num asc
+ 	</select>
+ 	
+ 	<select id="getreviewArticle" parameterType="int" resultType="com.spring.project.dto.reviewDTO">
+ 		select num, id writer, subject, content, readcnt, file1, reg_date, ip,
+ 		       fwnum, nextnum, asubject, bsubject
+ 		from(
+		select h.*, a.subject asubject, b.subject bsubject FROM
+		mvc_review_tbl h, mvc_review_tbl a, mvc_review_tbl b
+		where h.nextnum = a.num(+)
+		and h.fwnum = b.num(+)
+		union all
+		select num, id, subject, content, readcnt,
+		file1, reg_date, ip, fwnum, nextnum, null asubject, null bsubject FROM
+		mvc_review_tbl)
+		where num = #{num}
+		order by asubject desc, bsubject desc, num asc
+ 	</select>
+ 	
+ 	<!-- 공지 검색 갯수 -->
+ 	<select id="getSelectNoticeCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from mvc_notice_tbl 
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+		</if>
+ 	</select>
+
+	<!-- 공지 리스트 -->
+	<select id="getNoticeList" parameterType="java.util.Map" resultType="com.spring.project.dto.noticeDTO">
+ 		select num, id, subject, content, reg_date, file1, readcnt, fwnum, nextnum from 
+		(select num, id, subject, content, reg_date, file1, readcnt, fwnum, nextnum, rownum rNum 
+		from(SELECT * FROM mvc_notice_tbl
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+		</if>
+		order by num desc)
+		) 
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+ 	<!-- 공지 작성 처리 -->
+ 	<select id="maxnum" parameterType="int" resultType="int">
+		select nvl(max(num), 0) from
+		<if test="choose == 1">
+			mvc_notice_tbl
+		</if>
+		<if test="choose == 2">
+			mvc_FAQ_tbl
+		</if>
+		<if test="choose == 3">
+			mvc_QnA_tbl
+		</if>
+		<if test="choose == 4">
+			mvc_review_tbl
+		</if>
+		<if test="choose == 5">
+			mvc_reply_tbl
+		</if>
+ 	</select>
+	
+	<update id="updateReply" parameterType="java.util.Map">
+	 	<![CDATA[
+	 	update mvc_QnA_tbl 
+	 	set ref_step = ref_step + 1 
+	 	where ref_step > #{ref_step} and ref = #{ref}
+	 	]]>
+	 </update>
+
+	<update id="QnAupdatestate" parameterType="int">
+	 	update mvc_QnA_tbl set writestate = '답변완료' where num = #{num}
+	 </update>
+
+	<insert id="insertBoard" parameterType="java.util.Map">
+		insert into
+		<if test="choose == 1">
+			mvc_notice_tbl(num, id, subject, content, reg_date, file1)
+			values (notice_seq.nextval, #{vo.id}, #{vo.subject}, #{vo.content}, #{vo.reg_date}, #{vo.file1})
+		</if>
+		<if test="choose == 2">
+			mvc_FAQ_tbl(num, id, state, subject, content, reg_date)
+			values (FAQ_seq.nextval, #{vo.writer}, #{vo.state}, #{vo.subject}, #{vo.content}, #{vo.reg_date})
+		</if>
+		<if test="choose == 3">
+			mvc_QnA_tbl(num, id, state, pwd, subject, content,
+			file1, texttype, ref, ref_step, ref_level, reg_date, ip) 
+			values (QnA_seq.nextval, #{vo.writer}, #{vo.state}, #{vo.pwd, jdbcType=VARCHAR}, #{vo.subject}, #{vo.content}, #{vo.file1}, #{vo.textType}, #{ref}, #{ref_step}, #{ref_level}, #{vo.reg_date}, #{vo.ip})
+		</if>
+		<if test="choose == 4">
+			mvc_review_tbl(num, id, subject, content, reg_date, file1, ip)
+			values (review_seq.nextval, #{vo.writer}, #{vo.subject}, #{vo.content}, #{vo.reg_date}, #{vo.file1}, #{vo.ip})
+		</if>
+		<if test="choose == 5">
+			mvc_reply_tbl(num, id, content, reg_date, ip, ref)
+			values (reply_seq.nextval, #{vo.writer}, #{vo.content}, #{vo.reg_date}, #{vo.ip}, #{vo.ref})
+		</if>
+ 	</insert>
+
+	<select id="numSelect" parameterType="java.util.Map" resultType="int">
+		select num from 
+		<if test="choose == 1">
+			(select * from mvc_notice_tbl
+			<![CDATA[where num < (select max(num) as maxNum from mvc_notice_tbl)]]>
+		</if>
+		<if test="choose == 2">
+			(select * from mvc_FAQ_tbl
+			<![CDATA[where num < (select max(num) as maxNum from mvc_FAQ_tbl)]]>
+		</if>
+		<if test="choose == 3">
+			(select * from mvc_QnA_tbl
+			<![CDATA[where num < (select max(num) as maxNum from mvc_QnA_tbl)]]>
+		</if>
+		<if test="choose == 4">
+			(select * from mvc_review_tbl
+			<![CDATA[where num < (select max(num) as maxNum from mvc_review_tbl)]]>
+		</if>
+		order by num desc)
+		where rownum = 1
+ 	</select>
+
+	<update id="ifwupdate" parameterType="java.util.Map">
+		update
+		<if test="choose == 1">
+			mvc_notice_tbl set nextnum = #{num} 
+			where num = (select max(num) as maxNum from mvc_notice_tbl)
+		</if>
+		<if test="choose == 2">
+			mvc_FAQ_tbl set nextnum = #{num} 
+			where num = (select max(num) as maxNum from mvc_FAQ_tbl)
+		</if>
+		<if test="choose == 3">
+			mvc_QnA_tbl set nextnum = #{num} 
+			where num = (select max(num) as maxNum from mvc_QnA_tbl)
+		</if>
+		<if test="choose == 4">
+			mvc_review_tbl set nextnum = #{num} 
+			where num = (select max(num) as maxNum from mvc_review_tbl)
+		</if>
+ 	</update>	
+ 	
+ 	<update id="inextupdate" parameterType="java.util.Map">
+		update
+		<if test="choose == 1">
+			mvc_notice_tbl 
+			set fwnum = (select max(num) as maxNum from mvc_notice_tbl) 
+			where num = #{num}
+		</if>
+		<if test="choose == 2">
+			mvc_FAQ_tbl 
+			set fwnum = (select max(num) as maxNum from mvc_FAQ_tbl) 
+			where num = #{num}
+		</if>
+		<if test="choose == 3">
+			mvc_QnA_tbl 
+			set fwnum = (select max(num) as maxNum from mvc_QnA_tbl) 
+			where num = #{num}
+		</if>
+		<if test="choose == 4">
+			mvc_review_tbl 
+			set fwnum = (select max(num) as maxNum from mvc_review_tbl) 
+			where num = #{num}
+		</if>
+ 	</update>
+
+	<update id="replyfnupdate">
+	 	update mvc_QnA_tbl 
+	 	set nextnum = -1, fwnum = -1 
+	 	where num = (select max(num) as maxNum from mvc_QnA_tbl)
+	 </update>
+	
+	<!-- 공지 삭제 -->
+	<select id="getdeletenNotice" resultType="com.spring.project.dto.noticeDTO">
+	 	select * from mvc_notice_tbl where num=#{num}
+	 </select>
+	 
+	<update id="fwupdate" parameterType="java.util.Map">
+	 	update mvc_QnA_tbl set nextnum = #{nextnum} where num = #{fwnum}
+	</update>
+	
+	<update id="nextupdate" parameterType="java.util.Map">
+	 	update mvc_QnA_tbl set fwnum = #{fwnum} where num = #{nextnum}
+	</update>
+	
+	<delete id="deleteNoticeBoard" parameterType="java.util.Arrays">
+	 	delete mvc_notice_tbl where num = TO_NUMBER(#{array[0]})
+	</delete>
+	
+	<!-- 공지 수정 -->
+	<update id="addReadCnt" parameterType="java.util.Map">
+		update
+		<if test="choose == 1">
+			mvc_notice_tbl
+		</if>
+		<if test="choose == 2">
+			mvc_FAQ_tbl
+		</if>
+		<if test="choose == 4">
+			mvc_review_tbl
+		</if>
+		set readcnt = readcnt + 1 where num = #{num}
+ 	</update>
+	
+	<update id="updateBoard" parameterType="java.util.Map">
+		update
+		<if test="choose == 1">
+			mvc_notice_tbl set content = #{vo.content} where num = #{vo.num}
+		</if>
+		<if test="choose == 2">
+			mvc_FAQ_tbl set state = #{vo.state}, content = #{vo.content} where num = #{vo.num}
+		</if>
+		<if test="choose == 3">
+			mvc_QnA_tbl set content = #{vo.content}, file1 = #{vo.file1}, texttype = #{vo.textType}, pwd = #{vo.pwd} where num = #{vo.num}
+		</if>
+ 	</update>
+	
+	<!-- FAQ 검색 갯수 -->
+ 	<select id="getSelectFAQCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from mvc_FAQ_tbl 
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+			<if test="state != null">
+				and state in
+				<foreach collection="state" item = "states" open="(" separator="," close=")">
+					#{states}	<!-- item의 속성명(userId)과 #{변수명}이 반드시 일치해야 한다. -->
+				</foreach>
+			</if>
+		</if>
+ 	</select>
+
+	<!-- FAQ 리스트 -->
+	<select id="getFAQList" parameterType="java.util.Map" resultType="com.spring.project.dto.FAQDTO">
+ 		select num, id writer, state, subject, content, reg_date, fwnum, nextnum from 
+		(select num, id, state, subject, content, reg_date, fwnum, nextnum, rownum rNum 
+		from(SELECT * FROM mvc_FAQ_tbl
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+			<if test="state != null">
+				and state in
+				<foreach collection="state" item = "states" open="(" separator="," close=")">
+					#{states}	<!-- item의 속성명(userId)과 #{변수명}이 반드시 일치해야 한다. -->
+				</foreach>
+			</if>
+		</if>
+		order by num desc)
+		) 
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+	<!-- FAQ 삭제 -->
+	<select id="getdeleteFAQ" resultType="com.spring.project.dto.FAQDTO">
+	 	select num, id writer, state, subject, content, reg_date, fwnum, nextnum from mvc_FAQ_tbl where num=#{num}
+	 </select>
+	
+	<delete id="deleteFAQBoard" parameterType="java.util.Arrays">
+	 	delete mvc_FAQ_tbl where num = TO_NUMBER(#{array[0]})
+	</delete>
+	
+	<!-- QnA 검색 갯수 -->
+ 	<select id="getSelectQnACnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from mvc_QnA_tbl 
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+			<if test="state != null">
+				and state in
+				<foreach collection="state" item = "states" open="(" separator="," close=")">
+					#{states}	<!-- item의 속성명(userId)과 #{변수명}이 반드시 일치해야 한다. -->
+				</foreach>
+			</if>
+		</if>
+		<if test="strid != null">
+			<if test="firstday != null and lastday != null">
+				and id = #{strid}
+			</if>
+			<if test="firstday == null or lastday == null">
+				where id = #{strid}
+			</if>
+		</if>
+ 	</select>
+
+	<!-- QnA 리스트 -->
+	<select id="getQnAList" parameterType="java.util.Map" resultType="com.spring.project.dto.QnADTO">
+ 		select num, id writer, state, pwd, subject, content, reg_date, file1, ref, ref_step, ref_level, ip, fwnum, nextnum, texttype textType, writestate from 
+		(select num, id, state, pwd, subject, content, reg_date, file1, ref, ref_step, ref_level, ip, fwnum, nextnum, texttype, writestate, rownum rNum
+		from(SELECT * FROM mvc_QnA_tbl
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+			<if test="state != null">
+				and state in
+				<foreach collection="state" item = "states" open="(" separator="," close=")">
+					#{states}	<!-- item의 속성명(userId)과 #{변수명}이 반드시 일치해야 한다. -->
+				</foreach>
+			</if>
+		</if>
+		order by ref DESC, ref_step asc, num desc)
+		) 
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+	<!-- QnA 삭제 -->
+	<select id="getdeleteQnA" parameterType="int" resultType="com.spring.project.dto.QnADTO">
+	 	select num, id writer, state, pwd, subject, content, reg_date, file1, ref, ref_step, ref_level, ip, fwnum, nextnum, texttype textType, writestate
+	 	from mvc_QnA_tbl where num=#{num}
+	 </select>
+	
+	 <select id="getReplyCnt" parameterType="java.util.Map" resultType="int">
+	 	<![CDATA[
+	 	select count(*) from mvc_QnA_tbl where ref = #{ref} and ref_step = #{ref_step}+1 and ref_level > #{ref_level}
+	 	]]>
+	 </select>
+	 
+	 <select id="getReplysecCnt" parameterType="java.util.Map" resultType="int">
+	 	<![CDATA[
+	 	SELECT nvl(min(ref_step),0) as mi FROM mvc_QnA_tbl where ref_level <= #{ref_level} 
+		and ref_step > #{ref_step} and ref = #{ref}
+	 	]]>
+	 </select>
+	 
+	 <delete id="getReplydelete" parameterType="java.util.Map">
+	 	<![CDATA[
+	 	delete mvc_QnA_tbl where (num=#{num} or (ref = #{ref} and ref_level > #{ref_level})) and ref_step < (SELECT
+	    min(ref_step) FROM mvc_QnA_tbl
+		where ref_level <= #{ref_level}
+		and ref_step > #{ref_step}
+		and ref = #{ref})
+		and ref_step >= #{ref_step}
+	 	]]>
+	 </delete>
+	 
+	 <delete id="getnotReplydelete" parameterType="java.util.Map">
+	 	<![CDATA[
+	 	delete mvc_QnA_tbl where num=#{num} or (ref = #{ref} and ref_step > #{ref_step})
+	 	]]>
+	 </delete>
+	 
+	 <delete id="deleteQnABoard" parameterType="java.util.Arrays">
+	 	<![CDATA[
+	 	delete mvc_QnA_tbl where num = TO_NUMBER(#{array[0]})
+	 	]]>
+	 </delete>
+
+	<!-- review 검색 갯수 -->
+ 	<select id="getSelectreviewCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from mvc_review_tbl 
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+		</if>
+		<if test="strid != null">
+			<if test="firstday != null and lastday != null">
+				and id = #{strid}
+			</if>
+			<if test="firstday == null or lastday == null">
+				where id = #{strid}
+			</if>
+		</if>
+ 	</select>
+
+	<!-- review 리스트 -->
+	<select id="getreviewList" parameterType="java.util.Map" resultType="com.spring.project.dto.reviewDTO">
+ 		select num, id writer, subject, content, reg_date, file1, readcnt, ip, fwnum, nextnum from 
+		(select num, id, subject, content, reg_date, file1, readcnt, ip, fwnum, nextnum, rownum rNum
+		from(SELECT * FROM mvc_review_tbl
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and (subject like '%' || #{searchText} || '%' or content like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and subject like '%' || #{searchText} || '%'
+			</if>
+			<if test="searchType != 0 and searchType != 1">
+				where reg_date between #{firstday} and #{lastday}+1 
+				and content like '%' || #{searchText} || '%'
+			</if>
+		</if>
+		order by num desc)
+		) 
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+ 	<!-- review 삭제 -->
+	<select id="getdeletereview" resultType="com.spring.project.dto.reviewDTO">
+	 	select num, id writer, subject, content, reg_date, file1, readcnt, ip, fwnum, nextnum
+	 	from mvc_review_tbl where num=#{num}
+	</select>
+	
+	<delete id="refdelete" parameterType="int">
+	 	<![CDATA[
+	 	delete mvc_reply_tbl where ref = #{num}
+	 	]]>
+	</delete>
+	
+	<delete id="deletereviewBoard" parameterType="java.util.Arrays">
+	 	<![CDATA[
+	 	delete mvc_review_tbl where num = TO_NUMBER(#{array[0]})
+	 	]]>
+	</delete>
+ 	
+	<!-- reply 검색 갯수 -->
+ 	<select id="getSelectreplyCnt" parameterType="int" resultType="int">
+ 		select count(*) from mvc_reply_tbl where ref = #{num}
+ 	</select>
+
+	<!-- reply 리스트 -->
+	<select id="getreplyList" parameterType="java.util.Map" resultType="com.spring.project.dto.replyDTO">
+ 		select num, id writer, content, reg_date, ip, ref from 
+		(select num, id, content, reg_date, ip, ref, rownum rNum
+		from(SELECT * FROM mvc_reply_tbl where ref = #{num}
+		order by num desc)
+		) 
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+ 	<!-- reply 삭제 -->
+	<select id="getdeletereply" resultType="com.spring.project.dto.replyDTO">
+	 	select num, id writer, content, reg_date, ip, ref from mvc_reply_tbl where num=#{num}
+	</select>
+	
+	<delete id="deletereplyBoard" parameterType="java.util.Arrays">
+	 	<![CDATA[
+	 	delete mvc_reply_tbl where num = TO_NUMBER(#{array[0]})
+	 	]]>
+	</delete>
+
+	<!-- brand 갯수들 -->
+	<select id="getbrandCnt" resultType="int">
+		select count(*) as cnt from mvc_brand_tbl
+ 	</select>
+	
+	<select id="getSelectbrandCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) from mvc_brand_tbl 
+		<if test="searchType == 0">
+			where name like '%' || #{searchText} || '%'
+		</if>
+ 	</select>
+	
+	<!-- brand 리스트 -->
+	<select id="getbrandList" parameterType="java.util.Map" resultType="com.spring.project.dto.BrandDTO">
+ 		select num, name, reg_date, hp from 
+		(select num, name, reg_date, hp, rownum rNum
+		from(SELECT * FROM mvc_brand_tbl
+		<if test="searchType == 0">
+			where name like '%' || #{searchText} || '%'
+		</if>
+		order by num desc)
+		) 
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+ 	<!-- brand input Form max num -->
+ 	<select id="getbrandMaxNum" resultType="int">
+ 		select (CASE count(num) when 0 then 1
+               else max(num) + 1
+		END) as maxNum from mvc_brand_tbl
+ 	</select>
+	
+	<!-- brand 등록 -->
+ 	<insert id="insertBrand" parameterType="com.spring.project.dto.BrandDTO">
+		insert into mvc_brand_tbl(num, name, reg_date, hp)
+		values (brand_seq.nextval, #{name}, #{reg_date}, #{hp})
+ 	</insert>
+	
+	<!-- brand 삭제 -->
+	<select id="getbrand" resultType="com.spring.project.dto.BrandDTO">
+	 	select * from mvc_brand_tbl where num = #{num}
+	</select>
+	
+	<delete id="deletebrand" parameterType="java.util.Arrays">
+	 	<![CDATA[
+	 	delete mvc_brand_tbl where num = TO_NUMBER(#{array[0]}
+	 	]]>
+	</delete>
+	
+	<!-- brand 수정 -->
+	<update id="updateBrand" parameterType="com.spring.project.dto.BrandDTO">
+	 	<![CDATA[
+	 	update mvc_brand_tbl set name = #{name}, hp = #{hp} where num = #{num}
+	 	]]>
+	 </update>
+	
+	<!-- brand 리스트 -->
+	<select id="getbrandallList" resultType="com.spring.project.dto.BrandDTO">
+		select * from mvc_brand_tbl
+ 	</select>
+ 	
+ 	<!-- 대분류 갯수 -->
+	<select id="getSelectbigpartCnt" resultType="int">
+ 		select count(*) as cnt from bigpart
+ 	</select>
+	
+	<!-- 대분류 리스트 -->
+	<select id="getbigpartallList" resultType="com.spring.project.dto.bigpartDTO">
+		select * from bigpart
+ 	</select>
+	
+	<!-- 중분류 갯수 -->
+	<select id="getSelectmediumpartCnt" resultType="int">
+ 		select count(*) as cnt from mediumpart where bigcode = #{num}
+ 	</select>
+	
+	<!-- 중분류 리스트 -->
+	<select id="getmediumallList" resultType="com.spring.project.dto.mediumpartDTO">
+		select * from mediumpart where bigcode = #{num}
+ 	</select>
+	
+	<!-- color 갯수 -->
+	<select id="getcolorCnt" resultType="int">
+ 		select count(*) as cnt from color_tbl
+ 	</select>
+	
+	<!-- color 리스트 -->
+	<select id="getcolorList" resultType="com.spring.project.dto.colorDTO">
+		select * from color_tbl
+ 	</select>
+	
+	<!-- size 갯수 -->
+	<select id="getsizeCnt" resultType="int">
+ 		select count(*) as cnt from size_tbl
+ 	</select>
+	
+	<!-- size 리스트 -->
+	<select id="getsizeList" resultType="com.spring.project.dto.sizeDTO">
+		select * from size_tbl
+ 	</select>
+ 	
+ 	<!-- 대분류 등록 -->
+ 	<insert id="insertBigpart" parameterType="String">
+		insert into bigpart(bigcode, bigname)
+		values (bigpart_seq.nextval, #{name})
+ 	</insert>
+	
+	<!-- 중분류 등록 -->
+ 	<insert id="insertmediumpart" parameterType="java.util.Map">
+		insert into mediumpart(mediumcode, mediumname, bigcode)
+		values (mediumpart_seq.nextval, #{name}, #{bcode})
+ 	</insert>
+	
+	<!-- 컬러 등록 -->
+ 	<insert id="insertcolorpart" parameterType="String">
+		insert into color_tbl(colorcode, colorname)
+		values (color_seq.nextval, #{name})
+ 	</insert>
+	
+	<!-- 사이즈 등록 -->
+ 	<insert id="insertsizepart" parameterType="String">
+		insert into size_tbl(sizecode, sizename)
+		values (size_seq.nextval, #{name})
+ 	</insert>
+	
+	<!-- 대분류 삭제 -->
+	<delete id="deletebigpart" parameterType="int">
+	 	delete bigpart
+	 	where bigcode = #{num}
+	</delete>
+	
+	<!-- 중분류 삭제 -->
+	<delete id="deletemediumpart" parameterType="int">
+	 	delete mediumpart 
+	 	where mediumcode = #{num}
+	</delete>
+	
+	<!-- 컬러 삭제 -->
+	<delete id="deletecolorpart" parameterType="int">
+	 	delete color_tbl
+	 	where colorcode = #{num}
+	</delete>
+	
+	<!-- 대분류 삭제 -->
+	<delete id="deletesizepart" parameterType="int">
+	 	delete size_tbl
+	 	where sizecode = #{num}
+	</delete>
+	
+	<!-- product 등록 -->
+ 	<insert id="insertproduct" parameterType="com.spring.project.dto.clothDTO">
+		insert into mvc_cloths_tbl(num, name, content, mediumcode, tex, brandnum, icon, plus,
+		saleprice, buyprice, deliday, deliprice, mainfile, file1, file2,
+		file3, file4, file5, reg_date, withprdnum)
+		values (cloths_seq.nextval, #{name}, #{content}, #{mediumcode}, #{tex}, #{brandnum}, #{icon, jdbcType=VARCHAR}, #{plus}, #{saleprice}
+		, #{buyprice}, #{deliday}, #{deliprice}, #{mainfile}, #{file1, jdbcType=VARCHAR}, #{file2, jdbcType=VARCHAR}, #{file3, jdbcType=VARCHAR}
+		, #{file4, jdbcType=VARCHAR}, #{file5, jdbcType=VARCHAR}, #{reg_date}, #{withprdnum})
+ 	</insert>
+	
+	<!-- product 리스트 -->
+	<select id="getproduct" parameterType="int" resultType="com.spring.project.dto.clothDTO">
+ 		select * from
+ 		(SELECT c.*, b.bigname bname, m.mediumname mname, brand.name brandname
+ 		FROM mvc_cloths_tbl c, bigpart b, mediumpart m, mvc_brand_tbl brand
+ 		where c.mediumcode = m.mediumcode
+ 		and m.bigcode = b.bigcode
+ 		and c.brandnum = brand.num
+ 		and c.num = #{num})
+ 	</select>
+
+	<!-- product 수정 -->
+	<update id="updateproduct" parameterType="com.spring.project.dto.clothDTO">
+	 	update mvc_cloths_tbl
+	 	set name = #{name}, content = #{content}, mediumcode = #{mediumcode}, brandnum = #{brandnum}, icon = #{icon}, plus = #{plus},
+	 	saleprice = #{saleprice}, buyprice = #{buyprice}, deliday = #{deliday}, deliprice = #{deliprice}
+	 	where num = #{num}
+	</update>
+	
+	<!-- mainfile 수정 -->
+	<update id="updatemainfileproduct" parameterType="com.spring.project.dto.clothDTO">
+	 	update mvc_cloths_tbl set mainfile = #{mainfile} where num = #{num}
+	</update>
+	
+	<!-- file 수정 -->
+	<update id="updatefilesproduct" parameterType="com.spring.project.dto.clothDTO">
+	 	update mvc_cloths_tbl 
+	 	set file1 = #{file1}, file2 = #{file2}, file3 = #{file3}, file4 = #{file4}, file5 = #{file5}
+	 	where num = #{num}
+	</update>
+	
+	<!-- withitem 수정 -->
+	<update id="updatewithitemsproduct" parameterType="com.spring.project.dto.clothDTO">
+	 	update mvc_cloths_tbl
+	 	set withprdnum = #{withprdnum}
+	 	where num = #{num}
+	</update>
+	
+	<!-- product 삭제 -->
+	<delete id="deleteproduct" parameterType="java.util.Arrays">
+	 	<![CDATA[
+	 	delete mvc_cloths_tbl where num = TO_NUMBER(#{array[0]}
+	 	]]>
+	</delete>
+	
+	<!-- 분류에 따른 리스트 개수 -->
+	<select id="getSelectprdCnt" parameterType="String" resultType="int">
+ 		select count(*) as cnt from (select distinct c.* from mvc_cloths_tbl c, mvc_stock_tbl s 
+ 		where c.num = s.prdnum
+ 		and c.mediumcode in (select m.mediumcode from mediumpart m, bigpart b
+ 		where m.bigcode = b.bigcode
+ 		and b.bigname = #{name})
+ 		and s.state = '판매중')
+ 	</select>
+ 	
+	<!-- 상품상세 컬러 개수 -->
+	<select id="getSelectcolorCnt" parameterType="int" resultType="int">
+ 		select count(*) as cnt from mvc_stock_tbl where prdnum = #{num} and state = '판매중'
+ 	</select>
+	
+	<!-- 상품상세 사이즈 개수 -->
+	<select id="getSelectsizeCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) as cnt from mvc_stock_tbl 
+ 		where prdnum = #{num} and colorcode = #{colorcode} and state = '판매중'
+ 	</select>
+	
+	<!-- 상품상세 color 리스트 -->
+	<select id="getSelectcolorList" resultType="com.spring.project.dto.colorDTO">
+		select * from color_tbl 
+		where colorcode in 
+		(select mvc_stock_tbl.colorcode from mvc_stock_tbl where prdnum = #{num} and state = '판매중')
+ 	</select>
+	
+	<!-- 상품상세 size 리스트 -->
+	<select id="getSelectsizeList" parameterType="java.util.Map" resultType="com.spring.project.dto.sizeDTO">
+		select * from size_tbl 
+		where sizecode in 
+		(select mvc_stock_tbl.sizecode 
+		from mvc_stock_tbl 
+		where prdnum = #{num} and colorcode = #{colorcode} and state = '판매중')
+ 	</select>
+	
+	<!-- cs 등록 -->
+ 	<insert id="insertcs" parameterType="com.spring.project.dto.stockDTO">
+		insert into mvc_stock_tbl(num, prdnum, colorcode, sizecode, state, maxcount, count)
+		values (stock_seq.nextval, #{prdnum}, #{colorcode}, #{sizecode}, #{state}, #{maxcount}, #{count})
+ 	</insert>
+	
+	<!-- cs 가져오기 -->
+	<select id="getcs" parameterType="java.util.Map" resultType="com.spring.project.dto.stockDTO">
+		select s.*, si.sizename sizename, c.colorname colorname from mvc_stock_tbl s, color_tbl c, size_tbl si
+		where s.colorcode = c.colorcode
+		and s.sizecode = si.sizecode
+		and s.sizecode = #{sizecode} and s.colorcode = #{colorcode} and prdnum = #{prdnum}
+ 	</select>
+	
+	<!-- cs 수정 -->
+	<update id="updatecs" parameterType="com.spring.project.dto.stockDTO">
+	 	update mvc_stock_tbl
+	 	set count = #{count}, maxcount = #{maxcount}, state = #{state}
+	 	where num = #{prdnum}
+	 	and colorcode = #{colorcode} and sizecode = #{sizecode}
+	</update>
+	
+	<!-- order 등록 -->
+ 	<insert id="insertorder" parameterType="com.spring.project.dto.orderDTO">
+		insert into mvc_order_tbl(num, gid, prdnum, colorcode, sizecode, count, price, 
+		reg_date, depositname, bankname, pay_option, state, useplus, realprice)
+		values (order_seq.nextval, #{gid}, #{prdnum}, #{colorcode}, #{sizecode}, #{count},
+		#{price}, #{reg_date}, #{depositname}, #{bankname}, #{pay_option}, #{state}, #{useplus}, #{realprice})
+ 	</insert>
+	
+	<!-- 주문 시 count 수정 -->
+	<update id="orderupdatecs" parameterType="com.spring.project.dto.orderDTO">
+	 	update mvc_stock_tbl set count = count - #{count}
+	 	where colorcode = #{colorcode}
+	 	and sizecode = #{sizecode}
+	 	and prdnum = #{prdnum}
+	</update>
+	
+	<!-- count cs 가져오기 -->
+	<select id="getcountcs" parameterType="java.util.Map" resultType="int">
+		select count - #{count} as cnt from mvc_stock_tbl
+		where colorcode = #{colorcode}
+		and sizecode = #{sizecode}
+		and prdnum = #{prdnum}
+ 	</select>
+	
+	<!-- count 수정 -->
+	<update id="countChk" parameterType="java.util.Map">
+	 	update mvc_stock_tbl
+	 	set state = '품절'
+	 	where colorcode = #{colorcode} 
+	 	and sizecode = #{sizecode}
+	 	and prdnum = #{prdnum}
+	</update>
+	
+	<!-- order 개수 -->
+	<select id="getSelectOrderCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl where state != '주문취소' and state != '환불확인'
+		<if test="firstday != null and lastday != null">
+			<if test="state == null or state == ''">
+				and reg_date between #{firstday} and #{lastday}+1
+			</if>
+			<if test="state != null and state != ''">
+				and reg_date between #{firstday} and #{lastday}+1
+				and state = #{state}
+			</if>
+		</if>
+		<if test="strid != null">
+			and gid = #{strid}
+		</if>
+ 	</select>
+	
+	<!-- order 모든 개수 -->
+	<select id="getorderCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 	</select>
+	
+	<!-- order 리스트 -->
+	<select id="getorderList" parameterType="java.util.Map" resultType="com.spring.project.dto.orderDTO">
+		select num, gid, prdnum, colorcode, sizecode, count, price,
+		reg_date, bankname, pay_option, state, useplus, realprice, cname colorname, sname sizename, cloname prdname, mfile mainfile, cplus prdplus from
+		(select num, gid, prdnum, colorcode, sizecode, count, price,
+		reg_date, bankname, pay_option, state, useplus, realprice, cname, sname, cloname, mfile, cplus, rownum rNum 
+		from(SELECT o.*, c.colorname cname, s.sizename sname, clo.name cloname, clo.mainfile mfile, clo.plus cplus
+		FROM mvc_order_tbl o, color_tbl c, size_tbl s, mvc_cloths_tbl clo 
+		where o.colorcode = c.colorcode
+		and o.sizecode = s.sizecode
+		and o.prdnum = clo.num
+		<if test="strid != null">
+			and o.gid = #{strid}
+		</if>
+		<if test="firstday != null and lastday != null">
+			<if test="state == null or state == ''">
+				and o.reg_date between #{firstday} and #{lastday}+1
+			</if>
+			<if test="state != null and state != ''">
+				and o.reg_date between #{firstday} and #{lastday}+1
+				and o.state = #{state}
+			</if>
+		</if>
+		order by o.num desc)
+		) 
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+	
+	<!-- cart 등록 -->
+ 	<insert id="insertcart" parameterType="com.spring.project.dto.cartDTO">
+		insert into mvc_cart_tbl(num, gid, prdnum, colorcode, sizecode, count, price, reg_date) 
+		values (cart_seq.nextval, #{gid}, #{prdnum}, #{colorcode}, #{sizecode}, #{count}, #{price}, #{reg_date})
+ 	</insert>
+	
+	<!-- count 수정 -->
+	<update id="stockstate" parameterType="java.util.Map">
+	 	update mvc_order_tbl
+	 	<if test="state == 1">
+	 	set state = '주문취소'
+		</if>
+		<if test="state == 2">
+	 	set state = '환불신청'
+		</if>
+	 	where num = #{num}
+	</update>
+	
+	<!-- state 수정 -->
+	<update id="updatestate" parameterType="java.util.Map">
+	 	update mvc_stock_tbl set count = count + #{count}, state = '판매중'
+	 	where prdnum = (select prdnum from mvc_order_tbl where num = #{num})
+	 	and colorcode = (select colorcode from mvc_order_tbl where num = #{num})
+	 	and sizecode = (select sizecode from mvc_order_tbl where num = #{num})
+	</update>
+	
+	<!-- cart 개수 -->
+	<select id="getSelectCartCnt" parameterType="String" resultType="int">
+ 		select count(*) as cnt from mvc_cart_tbl where gid = #{string}
+ 	</select>
+	
+	<!-- cart 모든 개수 -->
+	<select id="getcartCnt" resultType="int">
+ 		select count(*) as cnt from mvc_cart_tbl
+ 	</select>
+	
+	<!-- cart 리스트 -->
+	<select id="getcartList" parameterType="java.util.Map" resultType="com.spring.project.dto.cartDTO">
+ 		select num, gid, prdnum, colorcode, sizecode, count, price,
+ 		reg_date, cname colorname, sname sizename, cloname prdname, mfile mainfile,
+ 		cprice delipay, gplus userplus, cplus pluspay from
+ 		(select num, gid, prdnum, colorcode, sizecode, count, price,
+ 		reg_date, cname, sname, cloname, mfile, cprice, gplus, cplus, rownum rNum 
+ 		from(SELECT o.*, c.colorname cname, s.sizename sname, clo.name cloname,
+ 		clo.mainfile mfile, clo.deliprice cprice, g.plus gplus, clo.plus cplus 
+ 		FROM mvc_cart_tbl o, color_tbl c, size_tbl s, mvc_cloths_tbl clo, mvc_guest_tbl g 
+ 		where o.colorcode = c.colorcode
+ 		and o.sizecode = s.sizecode 
+ 		and o.prdnum = clo.num
+ 		and o.gid = g.id
+ 		and g.id = #{strId}
+ 		order by o.num desc)
+		)
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+	<!-- cart 삭제 -->
+	<delete id="deletecart" parameterType="int">
+	 	delete mvc_cart_tbl where num = #{checked}
+	</delete>
+	
+	<!-- cart 모두 삭제 -->
+	<delete id="deleteallcart" parameterType="String">
+	 	delete mvc_cart_tbl where gid = #{strid}
+	</delete>
+	
+	<!-- 적립금 추가 -->
+	<update id="updategplus" parameterType="java.util.Map">
+	 	update mvc_guest_tbl set plus = plus - #{pluspay} + #{prdplus}
+	 	where id = #{strid}
+	</update>
+	
+	<!-- 적립금 리스트 -->
+	<select id="getplusList" parameterType="java.util.Map" resultType="com.spring.project.dto.orderDTO">
+ 		select num, gid, prdnum, colorcode, sizecode, count, price,
+ 		reg_date, bankname, pay_option, state, useplus, realprice, 
+ 		cname colorname, sname sizename, cloname prdname, mfile mainfile, cplus prdplus from
+ 		(select num, gid, prdnum, colorcode, sizecode, count, price,
+ 		reg_date, bankname, pay_option, state, useplus, realprice, 
+ 		cname, sname, cloname, mfile, cplus, rownum rNum
+ 		from(SELECT o.*, c.colorname cname, s.sizename sname, clo.name cloname, clo.mainfile mfile, clo.plus cplus
+ 		FROM mvc_order_tbl o, color_tbl c, size_tbl s, mvc_cloths_tbl clo
+ 		where o.colorcode = c.colorcode 
+ 		and o.sizecode = s.sizecode
+ 		and o.prdnum = clo.num 
+ 		and o.gid = #{strid}
+ 		and o.state != '주문취소'
+ 		and o.state != '환불신청'
+ 		and o.state != '환불완료'
+		order by o.num desc)
+		)
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+ 	<!-- 환불 적립금 토탈 -->
+	<select id="getrefundplus" resultType="int">
+ 		select (CASE count(useplus) when 0 then 0
+               else sum(useplus)
+		END) as useplus FROM mvc_order_tbl where gid = #{attribute}
+ 		and (state = '주문취소' or state = '환불확인')
+ 	</select>
+	
+	<!-- 주문 상태별 갯수 가져오기 -->
+	<select id="selectstateCnt" parameterType="java.util.Map" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl where state = #{state} and gid = #{strId}
+ 	</select>
+	
+	<!-- 관리자 전용 주문 상태 변경 -->
+	<update id="h_updatestate" parameterType="java.util.Map">
+	 	update mvc_order_tbl
+	 	set state = #{orderstate}
+		where num = #{ordernum}
+	</update>
+	
+	<update id="h_plusplus" parameterType="java.util.Map">
+	 	update mvc_guest_tbl
+	 	set plus = plus + #{plus}
+	 	where id = #{strid}
+	</update>
+	
+	<update id="h_plusminus" parameterType="java.util.Map">
+	 	update mvc_guest_tbl
+	 	set plus = plus - #{plus}
+	 	where id = #{strid}
+	</update>
+
+	<!-- product 리스트 -->
+	<select id="h_plusgetting" parameterType="int" resultType="int">
+		select plus from mvc_cloths_tbl where num = #{prdnum}
+	</select>
+
+	<select id="getMemberlist" parameterType="java.util.Map" resultType="com.spring.project.dto.MemberDTO">
+ 		select id, pwd, name, address, address1, address2, homephone, plus, hp, 
+ 		email, birth, birthtype, acchost, bank, acc, reg_date, visitcnt, key, auth, hostmemo from 
+ 		(select id, pwd, name, address, address1, address2, homephone, plus, hp, 
+ 		email, birth, birthtype, acchost, bank, acc, reg_date, visitcnt, key, auth, hostmemo, rownum rNum 
+ 		from(SELECT * FROM mvc_guest_tbl 
+ 		order by reg_date desc)
+ 		)
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+	
+	<!-- 멤버 가입 모든 수 -->
+	<select id="getmemberCnt" resultType="int">
+ 		select count(*) as cnt from mvc_guest_tbl
+ 	</select>
+ 	
+ 	<!-- 멤버 가입 수 -->
+	<select id="getSelectmemberCnt" resultType="int">
+		select count(*) as cnt from mvc_guest_tbl
+		where plus >= #{pluspay}
+		<if test="firstday != null and lastday != null">
+			<if test="searchType == 0">
+				and reg_date between #{firstday} and #{lastday}+1 
+				and (name like '%' || #{searchText} || '%' or id like '%' || #{searchText} || '%')
+			</if>
+			<if test="searchType == 1">
+				and reg_date between #{firstday} and #{lastday}+1 
+				and name like '%' || #{searchText} || '%' 
+			</if>
+			<if test="searchType != 1 and searchType != 0">
+				and reg_date between #{firstday} and #{lastday}+1 
+				and id like '%' || #{searchText} || '%' 
+			</if>
+		</if>
+ 	</select>
+	
+	<update id="updatehostmemoMember" parameterType="java.util.Map">
+	 	update mvc_guest_tbl set hostmemo = #{hostmemo} where id = #{strId}
+	</update>
+	
+	<!-- 방문자 토탈 -->
+	<select id="getclicktotal" resultType="int">
+		select count(*) as cnt from mvc_clicktotal_tbl
+        where TO_CHAR(reg_date, 'MM') = TO_CHAR(#{i}) 
+		and TO_CHAR(reg_date, 'YYYY') = #{year}
+ 	</select>
+	
+	<!-- 신규 멤버 토탈 -->
+	<select id="getnewmembertotal" resultType="int">
+		select count(*) as cnt from mvc_guest_tbl
+        where TO_CHAR(reg_date, 'MM') = TO_CHAR(#{i}) 
+		and TO_CHAR(reg_date, 'YYYY') = #{year}
+ 	</select>
+	
+	<!-- 주문 자 토탈 -->
+	<select id="getordermemberalltotal" resultType="int">
+		select count(*) from (select DISTINCT gid from mvc_order_tbl)
+ 	</select>
+ 	
+	<select id="getordermembertotal" resultType="int">
+		select count(*) as cnt from (select DISTINCT gid from mvc_order_tbl
+        where TO_CHAR(reg_date, 'MM') = TO_CHAR(#{i}) 
+		and TO_CHAR(reg_date, 'YYYY') = #{year})
+ 	</select>
+ 	
+ 	<!-- 주문 건수 토탈 -->
+	<select id="getorderCntalltotal" resultType="int">
+		select count(*) as cnt from mvc_order_tbl
+ 	</select>
+ 	
+	<select id="getorderCnttotal" resultType="int">
+		select count(*) as cnt from mvc_order_tbl
+        where TO_CHAR(reg_date, 'MM') = TO_CHAR(#{i}) 
+		and TO_CHAR(reg_date, 'YYYY') = #{year}
+ 	</select>
+ 	
+ 	<!-- 주문 금액 토탈 -->
+	<select id="getorderpricealltotal" resultType="int">
+		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as cnt from mvc_order_tbl
+ 	</select>
+ 	
+	<select id="getorderpricetotal" resultType="int">
+		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as price from mvc_order_tbl
+        where TO_CHAR(reg_date, 'MM') = TO_CHAR(#{i}) 
+		and TO_CHAR(reg_date, 'YYYY') = #{year}
+ 	</select>
+ 	
+ 	<!-- 주문 환불 토탈 -->
+	<select id="getorderrefundalltotal" resultType="int">
+		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as cnt from mvc_order_tbl
+		 where state = '환불확인'
+ 	</select>
+ 	
+	<select id="getorderrefundtotal" resultType="int">
+		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as price from mvc_order_tbl
+        where TO_CHAR(reg_date, 'MM') = TO_CHAR(#{i}) 
+		and TO_CHAR(reg_date, 'YYYY') = #{year}
+		and state = '환불확인'
+ 	</select>
+ 	
+ 	<!-- 주문 실금액 토탈 -->
+	<select id="getorderrealpricealltotal" resultType="int">
+		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as cnt from mvc_order_tbl
+		 where state = '환불확인'
+ 	</select>
+ 	
+	<select id="getorderrealpricetotal" resultType="int">
+		select (CASE count(realprice) when 0 then 0
+               else sum(realprice)
+		END) as price from mvc_order_tbl
+        where TO_CHAR(reg_date, 'MM') = TO_CHAR(#{i}) 
+		and TO_CHAR(reg_date, 'YYYY') = #{year}
+		and state = '환불확인'
+ 	</select>
+ 	
+ 	<!-- 카테고리 별 순위 -->
+	<select id="getCategoryrank" parameterType="java.util.Map" resultType="com.spring.project.dto.CategoryDTO">
+		select * from
+		(select m.mediumname mediname, b.bigname bigname, c.cnt cnttotal, c.price pricetotal
+		from (SELECT clo.mediumcode as medicode, count(*) as cnt , sum(o.price) as price
+		FROM mvc_order_tbl o, mvc_cloths_tbl clo
+		where o.prdnum = clo.num and o.state != '환불확인' and TO_CHAR(o.reg_date, 'YYYY') = #{year}
+		group by clo.mediumcode 
+		order by cnt desc) c, mediumpart m, bigpart b 
+		where c.medicode = m.mediumcode 
+		and m.bigcode = b.bigcode 
+		<![CDATA[and rownum >= 1 and rownum <= 10]]>)
+ 	</select>
+	
+	<!-- 판매순위 -->
+	<select id="getSalerank" parameterType="java.util.Map" resultType="com.spring.project.dto.SalerankDTO">
+		select * from
+		(select clo.name prdname, sum(s.count) stock, count(c.cnt) cnttotal, sum(c.price) pricetotal
+		from (SELECT prdnum as prdnum, count(*) as cnt , sum(price) as price
+		FROM mvc_order_tbl
+		where state != '환불확인' and TO_CHAR(reg_date, 'YYYY') = #{year}
+		group by prdnum
+		order by cnt desc) c, mvc_cloths_tbl clo, mvc_stock_tbl s where c.prdnum = clo.num
+		and c.prdnum = s.prdnum
+		<![CDATA[and rownum >= 1 and rownum <= 10]]>
+		group by clo.name)
+ 	</select>
+	
+	<!-- 적립금 순위 -->
+	<select id="getPluspay" parameterType="java.util.Map" resultType="com.spring.project.dto.PluspayDTO">
+		select * from(select g.name gname, g.id gid, c.cnt cnt, c.plus useplus, g.plus myplus 
+		from (SELECT gid, count(*) as cnt , sum(useplus) as plus 
+		FROM mvc_order_tbl
+		where state != '환불확인'
+		group by gid) c, mvc_guest_tbl g where c.gid = g.id
+		<![CDATA[and rownum >= 1 and rownum <= 10]]>)
+ 	</select>
+	
+	<!-- 내 게시물 리스트 -->
+	<select id="myboard" parameterType="java.util.Map" resultType="com.spring.project.dto.MyBoardDTO">
+		select * from(select * from(
+		select num, id writer, '문의글' state, subject, 0 readcnt, file1, texttype,
+		reg_date, writestate, fwnum, nextnum 
+		from mvc_QnA_tbl where id = #{strId}
+		union all
+		select num, id writer, '후기글' state, subject, readcnt, file1, null texttype,
+		reg_date, null writestate, fwnum, nextnum
+		from mvc_review_tbl where id = #{strId})
+		<if test="searchType == 0">
+			order by reg_date desc)
+			where subject like '%' || #{searchText} || '%'
+			<![CDATA[and rownum >= #{start} and rownum <= #{end}]]>
+		</if>
+		<if test="searchType != 0">
+			order by reg_date desc)
+			<![CDATA[where rownum >= #{start} and rownum <= #{end}]]>
+		</if>
+ 	</select>
+	
+	<!-- 내 게시물 검색 갯수 -->
+	<select id="getSelectMyBoardCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) as cnt from(
+		select num, id, '문의글' state, subject, 0 readcnt, 
+		file1, texttype, reg_date, writestate, fwnum, nextnum 
+		from mvc_QnA_tbl where id = #{strId}
+		union all
+		select num, id, '후기글' state, subject, readcnt, 
+		file1, null texttype, reg_date, null writestate, fwnum, nextnum 
+		from mvc_review_tbl where id = #{strId})
+		<if test="searchType == 0">
+			where subject like '%' || #{searchText} || '%'
+		</if>
+ 	</select>
+ 	
+ 	<!-- 내 게시물 갯수 -->
+	<select id="getMyBoardCnt" parameterType="String" resultType="int">
+		select count(*) as cnt from(
+		select num, id, '문의글' state, subject, 
+		0 readcnt, file1, texttype, reg_date, 
+		writestate, fwnum, nextnum 
+		from mvc_QnA_tbl where id = #{strid}
+		union all
+		select num, id, '후기글' state, subject, 
+		readcnt, file1, null texttype, reg_date, 
+		null writestate, fwnum, nextnum 
+		from mvc_review_tbl where id = #{strid})
+ 	</select>
+	
+	<!-- wish 등록 -->
+ 	<insert id="insertwish" parameterType="com.spring.project.dto.wishDTO">
+		insert into mvc_wishlist_tbl(num, gid, prdnum, colorcode, sizecode, count, price, reg_date)
+		values (wishlist_seq.nextval, #{gid}, #{prdnum}, #{colorcode}, #{sizecode}, #{count}, #{price}, #{reg_date})
+ 	</insert>
+	
+	<!-- wish 개수 -->
+	<select id="getSelectWishCnt" parameterType="String" resultType="int">
+ 		select count(*) as cnt from mvc_wishlist_tbl where gid = #{string}
+ 	</select>
+	
+	<!-- wish 모든 개수 -->
+	<select id="getWishCnt" resultType="int">
+		select count(*) as cnt from mvc_wishlist_tbl
+ 	</select>
+	
+	<!-- wish 리스트 -->
+	<select id="getwishList" parameterType="java.util.Map" resultType="com.spring.project.dto.wishDTO">
+ 		select num, gid, prdnum, colorcode, sizecode, count, price,
+ 		reg_date, cname colorname, sname sizename, cloname prdname, mfile mainfile,
+ 		cprice delipay, gplus userplus, cplus pluspay from
+ 		(select num, gid, prdnum, colorcode, sizecode, count, price,
+ 		reg_date, cname, sname, cloname, mfile, cprice, gplus, cplus, rownum rNum 
+ 		from(SELECT o.*, c.colorname cname, s.sizename sname, clo.name cloname,
+ 		clo.mainfile mfile, clo.deliprice cprice, g.plus gplus, clo.plus cplus 
+ 		FROM mvc_wishlist_tbl o, color_tbl c, size_tbl s, mvc_cloths_tbl clo, mvc_guest_tbl g 
+ 		where o.colorcode = c.colorcode
+ 		and o.sizecode = s.sizecode 
+ 		and o.prdnum = clo.num
+ 		and o.gid = g.id
+ 		and g.id = #{strId}
+ 		order by o.num desc)
+		)
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+ 	
+	<!-- wish 삭제 -->
+	<delete id="deletewish" parameterType="int">
+		delete mvc_wishlist_tbl where num = #{checked}
+	</delete>
+	
+	<!-- wish 모두 삭제 -->
+	<delete id="deleteallwish" parameterType="String">
+		delete mvc_wishlist_tbl where gid = #{strid}
+	</delete>
+	
+	<!-- 검색 리스트 개수 -->
+	<select id="getSelectSearchCnt" parameterType="java.util.Map" resultType="int">
+		select count(*) as cnt from mvc_cloths_tbl"
+		<if test="searchType == 0">
+			where name like '%' || #{searchText} || '%'
+		</if>
+ 	</select>
+ 	
+ 	<!-- 검색 리스트 조회 -->
+	<select id="getSearchList" parameterType="java.util.Map" resultType="com.spring.project.dto.clothDTO">
+		select num, name, icon, saleprice, mainfile from
+		(select num, name, icon, saleprice, mainfile, rownum rNum
+		from (SELECT *
+		FROM mvc_cloths_tbl
+		<if test="searchType == 0">
+			where name like '%' || #{searchText} || '%'
+		</if>
+		order by 1 desc)
+		)
+		<![CDATA[where rNum >= #{start} and rNum <= #{end}]]>
+ 	</select>
+	
+	
+	
+	<!-- 아이디 찾기 -->
+	<select id="findid" parameterType="java.util.Map" resultType="com.spring.project.dto.MemberDTO">
+		select * from
+		<if test="type == 0">
+			mvc_guest_tbl where name = #{name} and email = #{email}
+		</if>
+		<if test="type != 0">
+			mvc_host_tbl where name = #{name} and email = #{email}
+		</if>
+ 	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findpwd" parameterType="java.util.Map" resultType="com.spring.project.dto.MemberDTO">
+		select * from
+		<if test="type == 0">
+			mvc_guest_tbl where id = #{strId} and email = #{email}
+		</if>
+		<if test="type != 0">
+			mvc_host_tbl where id = #{strId} and email = #{email}
+		</if>
+ 	</select>
+	
+	
+
+	<insert id="visitplus" parameterType="java.util.Map">
+		insert into mvc_clicktotal_tbl values(clicktotal_seq.nextval, #{strid}, sysdate)
+ 	</insert>
+ 	
+ 	<select id="getmonthorderCnttotal" resultType="int">
+ 		select count(*) from mvc_order_tbl 
+		where to_char(reg_date, 'YYYY-MM') = to_char(sysdate, 'YYYY-MM')
+ 	</select>
+
+	<select id="getmonthorderrealpricetotal" resultType="int">
+ 		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as price from mvc_order_tbl
+ 		where to_char(reg_date, 'YYYY-MM') = to_char(sysdate, 'YYYY-MM') 
+ 		and state = '배송완료'
+ 	</select>
+	
+	<select id="getdayorderrealpricetotal" resultType="int">
+ 		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) from mvc_order_tbl 
+		where to_char(reg_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD') 
+		and state = '배송완료'
+ 	</select>
+ 	
+ 	<select id="getdayorderCnttotal" resultType="int">
+ 		select count(*) from mvc_order_tbl 
+ 		where to_char(reg_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD') 
+		and state = '배송완료'
+ 	</select>
+ 	
+ 	<select id="getdayclicktotal" resultType="int">
+ 		select count(*) from mvc_clicktotal_tbl 
+		where to_char(reg_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
+ 	</select>
+
+	<select id="selectQnACnt" resultType="int">
+ 		select count(*) from mvc_QnA_tbl
+ 		where to_char(reg_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
+ 	</select>
+ 	
+ 	<select id="selectnewmember" resultType="int">
+ 		select count(*) as cnt from mvc_review_tbl 
+ 		where to_char(reg_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD')
+ 	</select>
+ 	
+ 	<select id="getdaycancelCnttotal" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where to_char(reg_date, 'YYYY-MM-DD') = to_char(sysdate, 'YYYY-MM-DD') 
+ 		and state = '주문취소'
+ 	</select>
+ 	
+ 	<select id="selectMaxPayendCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where reg_date between sysdate - 6 and sysdate + 1
+ 		and state in ('배송준비중','배송중','배송완료')
+ 	</select>
+ 	
+ 	<select id="selectPayendCnt" resultType="int">
+ 		select count(*) from mvc_order_tbl
+ 		where TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(sysdate-#{i},'YYYY-MM-DD')
+ 		and state in ('배송준비중','배송중','배송완료')
+ 	</select>
+ 	
+ 	<select id="selectMaxDeliStartCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where reg_date between sysdate - 6 and sysdate + 1
+ 		and state = '배송준비중'
+ 	</select>
+ 	
+ 	<select id="selectDeliStartCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(sysdate-#{i},'YYYY-MM-DD')
+ 		and state = '배송준비중'
+ 	</select>
+ 	
+ 	<select id="selectMaxDeliingCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where reg_date between sysdate - 6 and sysdate + 1
+ 		and state = '배송중'
+ 	</select>
+ 	
+ 	<select id="selectDeliingCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(sysdate-#{i},'YYYY-MM-DD')
+ 		and state = '배송중'
+ 	</select>
+ 	
+ 	<select id="selectMaxDeliEndCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where reg_date between sysdate - 6 and sysdate + 1
+ 		and state = '배송완료'
+ 	</select>
+ 	
+ 	<select id="selectDeliEndCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(sysdate-#{i},'YYYY-MM-DD')
+ 		and state = '배송완료'
+ 	</select>
+
+	<select id="selectMaxCancelCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where reg_date between sysdate - 6 and sysdate + 1
+ 		and state in ('주문취소','환불완료')
+ 	</select>
+ 	
+ 	<select id="selectCancelCnt" resultType="int">
+ 		select count(*) as cnt from mvc_order_tbl
+ 		where TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(sysdate-#{i},'YYYY-MM-DD')
+ 		and state in ('주문취소','환불완료')
+ 	</select>
+ 	
+ 	<select id="selectMaxReviewCnt" resultType="int">
+ 		select count(*) as cnt from mvc_review_tbl
+ 		where reg_date between sysdate - 6 and sysdate + 1
+ 	</select>
+ 	
+ 	<select id="selectReviewCnt" resultType="int">
+ 		select count(*) as cnt from mvc_review_tbl
+ 		where TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(sysdate-#{i},'YYYY-MM-DD')
+ 	</select>
+ 	
+ 	<select id="getweekpricetotalMax" resultType="int">
+ 		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as cnt from mvc_order_tbl
+ 		where reg_date between sysdate - 6 and sysdate + 1
+ 	</select>
+ 	
+ 	<select id="getweekpricetotal" resultType="int">
+ 		select (CASE count(price) when 0 then 0
+               else sum(price)
+		END) as cnt from mvc_order_tbl
+ 		where TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(sysdate-#{i},'YYYY-MM-DD')
+ 	</select>
+ 	
+ 	
+</mapper>

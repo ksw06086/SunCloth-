@@ -1,0 +1,34 @@
+#spm_ico{
+  position: fixed;
+  bottom: 150px;
+  right: 50px;
+  z-index: 999999999;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 768px) {
+#spm_ico{
+    position: fixed;
+    bottom: 100px;
+    left: 20px;
+    z-index: 999999999;
+  }
+}
+
+
+#spm-delegate-banner{border: 1px solid black; display:inline-block; position: absolute; top: 25vh; left: 5px;background: white;z-index: 100000;}
+#spm-delegate-banner-main{max-width:400px;max-height:400px;display: inline-block;float: left; width:60vw;height:60vw;}
+#spm-delegate-banner-main li img{width: 100%;height: 100%;}
+#spm-delegate-banner-main ul{padding:0px;margin:0px;display: inline-block;}
+#spm-delegate-banner-main ul li{display:none;}
+#spm-delegate-banner-main ul li.active{display:inline-block;}
+#spm-delegate-banner-ico{display: inline-block;clear: both;}
+#spm-delegate-banner-ico a{display:block;}
+#spm-delegate-banner-footer{display:block;width: 100%;clear: both; color:white; background-color: black;font-size: 0.8rem;}
+#spm-delegate-banner-footer a{text-decoration: none;color:white;}
+#spm-delegate-banner-footer div{display:inline-block;padding: 10px;}
+#spm-delegate-banner-footer div.spm-footer-right{float:right;}
+
+
+@media (max-width: 1024px) {
+  /* #spm-delegate-banner-ico img{width:50px;} */
+}

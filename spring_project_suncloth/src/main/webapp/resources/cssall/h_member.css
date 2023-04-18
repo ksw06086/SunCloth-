@@ -1,0 +1,154 @@
+@charset "UTF-8";
+#middle{
+		border-collapse:collapse;
+		width:100%;
+	}
+	#righttop{
+		position:relative;
+		text-align:center;
+		width:100%;
+		margin: 15px 0px;
+	}
+	
+	#righttop p{
+		margin:0px;
+		padding:0px;
+		font-size:1.5em;
+	}
+	
+	#righttop p:nth-child(2){
+		position:absolute;
+		top:0px;
+		right:20px;
+	}
+	
+	#prdinput{
+    	width: 150px;
+    	color: white;
+    	background-color: #7FB3D5;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#searchifs{
+		width:97%;
+		margin:0px auto;
+		background-color:white;
+		border-top:1px solid #000;
+		border-bottom:1px solid #000;
+		border-collapse:collapse;
+	}
+	
+	#searchifs tr td{
+		padding:15px 10px;
+		border-bottom:1px solid #ccc;
+		font-size:.8em;
+	}
+	
+	#searchifs tr td:nth-child(1){
+		background-color:#EAECEE;
+		font-weight:bold;
+	}
+	
+	 #daytypeoption input[type = "radio"]{
+    	display: none;
+    }
+    
+    #daytypeoption{
+    	vertical-align:middle;
+    }	
+
+	#daytypeoption tr, #daytypeoption tr td{
+		padding:0px;
+		margin:0px;
+		border:1px solid #000;
+	}
+
+	#daytypeoption tr td{
+		padding: 5px;
+	}
+	
+	#srhbtnp{
+		width:100%;
+		text-align:center;
+		margin:40px 0px 15px;
+	}
+	
+	#srhbtn{
+		width: 200px;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#result{
+		background-color: white;
+		width:97%;
+		margin:0px auto;
+	}
+	
+	#resulttop tr td{
+		padding:20px 15px 12px;
+	}
+	
+	#orderlist{
+    	text-align: center;
+    	font-size: .75em;
+    	width: 98%;
+    	margin:0px auto;
+    	background-color:#EAECEE;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    	border-collapse:collapse;
+    }
+    
+    #title{
+    	font-weight:bold;
+    	border:none;
+    }
+    
+    #title td{
+    	padding:25px 15px;
+    	border:none;
+    }
+    
+    .statemanu{
+    	font-size:1.2em;
+    	background-color:#fff;
+    }
+    
+    #statemanu1, #statemanu2, #statemanu3,
+    #statemanu4, #statemanu5, #statemanu6,
+    #statemanu7{
+    	display:none;
+    }
+    
+    
+    .orderprd{
+    	background-color:white;
+    }
+    
+    .orderprd td{
+    	border-top:1px solid #ccc;
+    	padding:10px 15px;
+    }
+    
+    #checknotstock, #checkdel{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: none;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: white;
+	    background-color: #000;
+	    transition: all 0.15s ease;
+    }

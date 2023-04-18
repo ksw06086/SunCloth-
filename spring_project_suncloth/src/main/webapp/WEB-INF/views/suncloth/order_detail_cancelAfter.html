@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body{
+		width: 85%;
+		margin: 0 auto;
+	}
+	
+	li{
+        list-style:none;
+	}
+	
+	#header{
+		position:relative;
+		padding:20px 0px 50px 0px;
+		margin: 0 auto;
+	}
+
+	#search_btn {
+		background: url("../ascloimage/icon_search.png") no-repeat;
+		background-size:cover;
+		cursor: pointer;
+		border: none;
+		width: 20px;
+		height: 18px;
+	}
+	div{
+		display:block;
+	}
+	#langage{
+		position:absolute;
+		top:0px;
+		left:0px;
+	}
+	#search{
+		position:absolute;
+		top:0px;
+		right:0px;
+	}
+	#mainname{
+		text-align:center;
+		width:100%;
+		margin:0 auto;
+	}
+	
+	#bottomright{
+		position:absolute;
+		right:0;
+		bottom:5px;
+	}
+	.bottom table tr td {
+    	font-size: .8em;
+    	margin: 0;
+    	padding: 0px 5px 0px;
+	}
+	#bottomleft{
+		position:absolute;
+		left:0;
+		bottom:5px;
+	}
+	
+	.bottom table tr td:hover, .bottom table tr td:focus{
+		opacity: 0.5;
+	}
+	
+	.lnb {
+        overflow:hidden;
+        width:100%; height:40px;
+        border-top:1px solid #cccccc;
+        border-bottom:1px solid #cccccc;
+        padding:5px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .lnb ul {
+        margin: 0 auto;
+    }
+
+    .lnb li {
+        margin:5px;
+        line-height:25px;
+        display:inline-block;
+        font-size:.8em;
+    }
+
+    .lnb a {
+        color:#282828;
+        font-size:1.1em;
+        padding:10px 15px;
+        text-decoration:none;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    #road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #service{
+    	margin: 30px 0px;
+    }
+    
+    #service tr td{
+    	padding: 10px 0px;
+    }
+    
+    #orderlist{
+    	text-align: center;
+    	font-size: .7em;
+    	width: 100%;
+    	margin: 0px 0px 50px;
+    }
+    
+    #order{
+    	margin: 0px 0px 50px;
+    	width:100%;
+    	border-collapse:collapse;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    }
+    
+    #order tr td:nth-child(1){
+    	border-right:1px solid #ccc;
+    }
+    
+    #order tr td{
+    	border-bottom: 1px solid #ccc;
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    #likein, #del{
+    	width:100px;
+    	padding: 3px 0px;
+    	background: #fff;
+    	border: 1px solid #ccc;
+    	font-size: 1em;
+    	margin: 1px 0px;
+    }
+    
+    .orderprd td{
+    	border-bottom: 1px solid rgba(204, 204, 204,0.5);
+    }
+    
+    #checkdel, #cartmove, #alldel, #estprint{
+    	padding: 3px 3px;
+    	background: #fff;
+    	border: 1px solid #ccc;
+    	font-size: 1em;
+    	margin: 0px 1px;
+    }
+    
+    #total{
+    	width: 100%;
+    	border-collapse:collapse;
+    }
+    
+    #total tr td{
+    	border: 1px solid #ccc;
+    	padding: 10px 4px;
+    } 
+    
+    #title td{
+    	border-bottom: 1px solid #ccc;
+    	padding: 10px 0px;
+    }
+    
+    #Ttitle td{
+    	padding:15px 0px;
+    	font-size:.7em;
+    	font-weight: bold;
+    }
+    
+    #Tsmry td{
+    	padding: 15px 0px;
+    	font-size: .7em;
+    }
+    
+    #delilist{
+    	margin: 0px 0px 50px;
+    	width:100%;
+    	border-collapse:collapse;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    }
+    
+    #delilist tr td:nth-child(1){
+    	border-right:1px solid #ccc;
+    }
+    
+    #delilist tr td{
+    	border-bottom: 1px solid #ccc;
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    #message{
+    	margin: 0px 0px 10px;
+    	width:100%;
+    	border-collapse:collapse;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    }
+    
+    #message tr td:nth-child(1){
+    	border-right:1px solid #ccc;
+    }
+    
+    #message tr td{
+    	border-bottom: 1px solid #ccc;
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    #internetbank, #detail{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: 1px solid #bbb;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: #353535;
+	    background-color: #fff;
+	    transition: all 0.15s ease;
+    }
+    
+    #ordercheck{
+    	width:100px;
+    	padding: 10px 0px;
+    	background: #282828;
+    	color: white;
+    	border: 1px solid #ccc;
+    	font-size: .8em;
+    	margin: 1px 0px;
+    }
+    
+    
+
+
+
+
+
+
+    
+    
+    
+    
+    div {
+    	display: block;
+    }
+    
+    #foot .footdiv > ul > li{
+    	float: left;
+    	list-style:none; 
+    	font-size:.9em;
+    }
+    
+    .aside > div.m{
+    	float: left;
+    	padding:0px 0px 0px 30px;
+    }
+    
+    #foot{
+    	background: #F2F3F4;
+    	height: 400px;
+    	padding: 50px 0 0 0;
+    	position: static;
+    	
+    }
+</style>
+</head>
+<body>
+	<header id = "header">
+		<div id = "langage">
+			<img src = "../images/12장/ch.png">
+			<img src = "../images/12장/jp.png">
+			<img src = "../images/12장/us.png">
+		</div>
+		<div id = "search">
+			<input type = "text" id = "search_box" class = "searchall">
+			<button id = "search_btn" class = "searchall"></button>
+		</div>
+		
+		<div id = "mainname">
+			<h2>suncloth</h2>
+		</div>
+		
+		<div id = "bottomleft" class = "bottom">
+			<table>
+				<tr>
+					<td>login</td>
+					<td>join us</td>
+					<td>cart</td>
+					<td>order</td>
+					<td>mypage</td>
+				</tr>
+			</table>
+		</div>
+		<div id = "bottomright" class = "bottom">
+			<table>
+				<tr>
+					<td>notice</td>
+					<td>FAQ</td>
+					<td>Q&A</td>
+					<td>REVIEW</td>
+					<td>membership</td>
+					<td>bookmark</td>
+					<td>delivery</td>
+					<td><img src="../ascloimage/facebook-logo.png" width = "10px" height = "10px"></td>
+					<td><img src="../ascloimage/instagram.png" width = "10px" height = "10px"></td>
+				</tr>
+			</table>
+		</div>
+	</header>
+	
+	<div class="lnb">
+        <ul>
+            <li><a href="#" alt="">only asclo</a></li>
+            <li><a href="#" alt="">best</a></li>
+            <li><a href="#" alt="">outer</a></li>
+            <li><a href="#" alt="">suit</a></li>
+            <li><a href="#" alt="">top</a></li>
+            <li><a href="#" alt="">shirt</a></li>
+            <li><a href="#" alt="">knit</a></li>
+            <li><a href="#" alt="">bottom</a></li>
+            <li><a href="#" alt="">shoes</a></li>
+            <li><a href="#" alt="">acc</a></li>
+            <li><a href="#" alt="">perfect line</a></li>
+            <li><a href="#" alt="">+5cm</a></li>
+            <li><a href="#" alt="">asclo fit</a></li>
+        </ul>
+     </div>
+     
+     <div id = "road">
+		<p>home > mypage</p>
+	</div>
+	
+	<div id = "topname">
+		<p><b>ORDER DETAIL</b></p>
+	</div>
+     
+     <p><b>주문정보</b></p>
+     <table id = "order">
+     	<col style = "width: 15%;">
+   		<col>
+     	<tr>
+     		<td>주문번호</td>
+     		<td>20190531-00000441</td>
+     	</tr>
+     	<tr>
+     		<td>주문일자</td>
+     		<td>2019-05-31 09:32:21</td>
+     	</tr>
+     	<tr>
+     		<td>주문자</td>
+     		<td>김선우</td>
+     	</tr>
+     	<tr>
+     		<td>주문처리상태</td>
+     		<td>입금전취소</td>
+     	</tr>
+     </table>
+     
+     <p><b>결제정보</b></p>
+     <table id = "total">
+    	<col style = "width:15%;">
+    	<col>
+    	<tr id = "Ttitle">
+    		<td>총 주문금액</td>
+    		<td>KRW 24,500
+    		<input type = "button" id = "detail" value = "내역보기"></td>
+    	</tr>
+    	<tr id = "Ttitle">
+    		<td>최종결제금액</td>
+    		<td>KRW 24,500</td>
+    	</tr>
+    	<tr id = "Tsmry">
+    		<td>결제수단</td>
+    		<td>
+    		<b>무통장 입금</b><br>
+    		입금자: 김선우, 계좌번호 : 국민은행 1234-1234-1234(서지우(애즈클로))
+    		<input type = "button" id = "internetbank" value = "인터넷뱅킹 바로가기">
+    		</td>
+    	</tr>
+    </table>
+    
+<form action = "" name = "orderdetail" method = "post">
+	<table style = "margin: 50px 0px 15px">
+		<tr>
+			<td><b>주문 상품 정보</b></td>
+		</tr>
+	</table>
+    <table id = "orderlist" style = "border-bottom: 1px solid #ccc; border-top: 1px solid #ccc;">
+    	<col style = "width:9%;">
+    	<col>
+    	<col style = "width:7%;">
+    	<col style = "width:5%;">
+    	<col style = "width:7%;">
+    	<col style = "width:7%;">
+    	<col style = "width:7%;">
+    	<tr id = "title">
+    		<td>이미지</td>
+    		<td>상품정보</td>
+    		<td>판매가</td>
+    		<td>수량</td>
+    		<td>적립금</td>
+    		<td>배송구분</td>
+    		<td>합계</td>
+    	</tr>
+    	<tr class = "orderprd">
+    		<td><img src = "../ascloimage/jang3.jpg" width = "70px" height = "100px"></td>
+    		<td style = "text-align:left;"><b>프리미엄 바이오 장원영 야구복 (4type)</b><br>
+    		<span style = "color: #282828;">[옵션: Purple/구매/M(+47,000)]</span>
+    		</td>
+    		<td><b>KRW 76,000</b></td>
+    		<td><input type = "number" value = "1" min = "1" max = "10" step = "1" style = "width:40px;">
+    		</td>
+    		<td>
+    		<img src = "../ascloimage/n.png" width = "10px" height = "10px" style = "vertical-align: middle;">
+    		200원
+    		</td>
+    		<td>기본배송</td>
+    		<td><b>KRW 76,000</b></td>
+    	</tr>
+    	<tr id = "subtotal">
+    		<td colspan = "10">
+    		<p style = "float: left; margin-left: 10px;">[기본배송]</p>
+    		<p style = "float: right; margin-right: 10px;">상품구매금액 <b>76,000 (+47,000)</b> + 배송비 2,500 = 합계:   <b>KRW 78,500</b></p>
+    		</td>
+    	</tr>
+    </table>
+	
+	<p><b>배송지 정보</b></p>
+    <table id = "delilist">
+    	<col style = "width:15%;">
+    	<col>
+    	<tr>
+    		<td>받으시는 분</td>
+    		<td>김선우</td>
+    	</tr>
+    	<tr>
+    		<td>우편번호</td>
+    		<td>14409</td>
+    	</tr>
+    	<tr>
+    		<td>주소</td>
+    		<td>
+    		경기도 부천시 고리울로 123456
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>일반전화</td>
+    		<td>
+    		02-123-4567
+    		</td>
+    	</tr>
+    	<tr>
+    		<td>휴대폰번호</td>
+    		<td>
+    		010-1234-5678
+    		</td>
+    	</tr>
+    	
+    	<tr>
+    		<td>배송메시지</td>
+    		<td>
+    		에베베베</td>
+    	</tr>
+    </table>
+    
+    <p><b>추가정보</b></p>
+   	<table id = "message">
+   		<col style = "width: 15%;">
+   		<col>
+   		<tr>
+   			<td>고객메세지</td>
+   			<td>안전하게 가져다 주세요~</td>
+   		</tr>
+   	</table>
+    
+    <table style = "width: 100%;">
+    	<tr>
+    		<td colspan = "2" style = "text-align: right;">
+    		<input type = "button" value = "주문목록보기" id = "ordercheck"><!-- 주문목록으로 -->
+    		</td>
+    	</tr>
+    </table>
+     
+    <fieldset style = "border: 1px solid; margin: 80px 0px;">
+    	<p style = "font-size:.9em;">이용안내</p>
+    	<hr>
+    	<p style = "font-size:.9em;">장바구니 이용안내</p>
+    	<p style = "font-size:.8em;">&nbsp;&nbsp;&nbsp;<img src = "../ascloimage/one.png" width = "10px" height = "10px"> [쇼핑계속하기] 버튼을 누르시면 쇼핑을 계속하실 수 있습니다.<br>
+    	&nbsp;&nbsp;&nbsp;<img src = "../ascloimage/two.png" width = "10px" height = "10px"> 장바구니와 관심상품을 이용하여 원하시는 상품만 주문하거나 관심상품으로 등록하실 수 있습니다.<br>
+    	&nbsp;&nbsp;&nbsp;<img src = "../ascloimage/three.png" width = "10px" height = "10px"> 파일첨부 옵션은 동일상품을 장바구니에 추가할 경우 마지막에 업로드 한 파일로 교체됩니다.</p>
+    	
+    	<p style = "font-size:.9em;">무이자할부 이용안내</p>
+    	<p style = "font-size:.8em;">&nbsp;&nbsp;&nbsp;<img src = "../ascloimage/one.png" width = "10px" height = "10px"> 상품별 무이자할부 혜택을 받으시려면 무이자할부 상품만 선택하여 [주문하기] 버튼을 눌러 주문/결제 하시면 됩니다.<br>
+    	&nbsp;&nbsp;&nbsp;<img src = "../ascloimage/two.png" width = "10px" height = "10px"> [전체 상품 주문]버튼을 누르시면 장바구니의 구분없이 선택된 모든 상품에 대한 주문/결제가 이루어집니다.<br>
+    	&nbsp;&nbsp;&nbsp;<img src = "../ascloimage/three.png" width = "10px" height = "10px"> 단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.</p>
+    </fieldset>
+     
+ </form>   
+     
+     
+     
+     
+     
+     
+     
+     
+     
+  
+     
+     
+     
+     
+     <footer id = "foot">
+		<div class = "footdiv">
+			<ul>
+				<li>
+					<div class = "aboutus">
+						<ul>
+							<li>ABOUT US</li><br>
+							<li>company.애즈클로</li>
+							<li>tel.032-1234-5678 email.k-sunwo@naver.com</li>
+							<li>business no.204-29-34817</li>
+							<li>mail order license.2019-서울동대문-0071호[사업자정보확인]</li>
+							<li>address.[02586] 서울특별시 성동구 청계천로 468 3층</li>
+							<br>
+							<li><b>[교환/반품 주소지]</b></li>
+							<li>서울특별시 동대문구 난계로30길 23 (신설동) 7층</li>
+							<li>CJ대한통운 택배고객센터 : 1588-1255</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class = "cscenter">
+						<ul>
+							<li>C/S CENTER</li><br>
+							<li>070-1234-5678</li>
+							<li>MON - FRI : 10AM-4:30PM</li>
+							<li>LUNCH : 12:30AM-1:30PM</li>
+							<li>SAT SUN HOLIDAT OFF</li>
+							<br>
+							<li><b>[무통장 계좌 안내]</b></li>
+							<li>KB국민 123456-01-123456</li>
+							<li>예금주 : 김선우(선클로)</li>
+							<br>
+							<li><b>[반품 계좌 안내]</b></li>
+							<li>KB국민 123456-01-123456</li>
+							<li>예금주 : 김선우(선클로)</li>
+						</ul>
+					</div>
+				</li>
+		
+				<li>
+					<div class = "aside">
+						<div class = "m">
+							<ul>
+								<li>COMMUNITY</li>
+								<BR>
+								<li>NOTICE</li>
+								<li>FAQ</li>
+								<li>Q&A</li>
+								<li>REVIEW</li>
+								<li>MEMBERSHIP</li>
+							</ul>
+						</div>
+						<div class = "m">
+							<ul>
+								<li>MEMBERSHIP</li>
+								<BR>
+								<li>회원가입</li>
+								<li>아이디 찾기</li>
+								<li>비밀번호 찾기</li>
+								<li>주문조회 바로가기</li>
+								<li>최근 본 상품</li>
+							</ul>
+						</div>
+						<div class = "m">
+							<ul>
+								<li>SHOP GUIDE</li>
+								<BR>
+								<li>홈으로</li>
+								<li>회사소개</li>
+								<li>이용약관안내</li>
+								<li>개인정보취급방침</li>
+								<li>이용안내</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>

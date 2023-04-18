@@ -1,0 +1,77 @@
+#topnamesub{
+    	margin-top: 15px;
+    	text-align: center;
+    	font-size: .75em;
+    	color: gray;
+    }
+    
+    #road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #notice{
+    	text-align:left;
+    	font-size: .8em;
+    }
+    
+    #notice table tr td, #notice table tr th{
+    	padding: 10px 0px;
+    }
+    
+    .oneandone table{
+    	border-bottom:1px solid #ccc;
+    	border-top:1px solid #ccc;
+    }
+    
+    .oneandone .firsttr ~ tr td{
+    	border-top:1px solid rgba(204, 204, 204 ,0.3);
+    }
+    
+    .oneandone .firsttr td{
+    	border-top:1px solid #ccc;
+    }
+    
+    #content{
+    	text-align: left;
+    	font-size: .8em;
+    	padding: 20px 0px;
+    	margin: 30px 0px 20px;
+    	border-bottom: 1px solid #ccc;
+    }
+    
+    #golist input{
+    	width:80px;
+    	padding: 10px 0px;
+    	background: #fff;
+    	border: 1px solid #ccc;
+    }
+    
+    #beforeNafter{
+    	margin: 50px 0px 120px;
+    	width: 100%;
+    }
+    
+    #beforeNafter table{
+    	width: 100%;
+    }
+    
+    #beforeNafter table tr td{
+    	font-size: .8em;
+    	padding: 10px 0px 10px 12px;
+    }
+    
+    #beforeNafter table, #beforeNafter tr
+    ,#beforeNafter td{
+    	border:1px solid #ccc;
+    	border-collapse:collapse
+    }

@@ -1,0 +1,55 @@
+@charset "UTF-8";
+#topnamesub{
+    	margin-top: 15px;
+    	text-align: center;
+    	font-size: .75em;
+    	color: gray;
+    }
+    
+    #road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    form{
+    	margin: 25px 0px 150px;
+    }
+    
+    fieldset{
+    	width: 350px;
+    	margin: 0 auto;
+    	border: 1px solid #ccc;
+    }
+    
+    fieldset table{
+    	width: 100%;
+		
+    }
+    
+    #headtext tr td, #summary tr td{
+    	text-align: left;
+    	font-size: .75em;
+    }
+    
+    #btn tr td{
+    	text-align: center;
+    	font-size: .75em;
+    }
+    
+    #gomain{
+    	width: 150px;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 15px;
+    	font-size:.8em;
+    }

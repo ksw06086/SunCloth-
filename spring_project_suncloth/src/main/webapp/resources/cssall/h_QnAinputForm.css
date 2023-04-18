@@ -1,0 +1,122 @@
+#righttop{
+		position:relative;
+		text-align:center;
+		width:100%;
+		margin: 15px 0px;
+	}
+	
+	#righttop p{
+		margin:0px;
+		padding:0px;
+		font-size:1.5em;
+	}
+	
+	#righttop p:nth-child(1){
+		position:absolute;
+		top:0px;
+		left:20px;
+	}
+	
+	#righttop p:nth-child(3){
+		position:absolute;
+		top:0px;
+		right:20px;
+	}
+	
+	#save{
+    	width: 100px;
+    	color: white;
+    	background-color: #7FB3D5;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#boardlist{
+		width: 160px;
+    	color: white;
+    	background: gray;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#product{
+		background-color: white;
+		width:97%;
+		margin:0px auto;
+	}
+	
+	#persontop{
+		width:97%;
+		margin:0px auto;
+		background-color:white;
+	}
+	
+	#persontop tr td{
+		padding:15px 10px;
+	}
+	
+	#notice{
+    	text-align:left;
+    	font-size: .8em;
+    	width: 97%;
+    	margin:0px auto;
+    }
+    
+    #notice table tr td, #notice table tr th{
+    	padding: 10px 0px;
+    }
+	
+	#prddata{
+    	width: 97%;
+    	font-size: .75em;
+    	margin:0px auto 20px;
+    }
+    
+    #prddata input{
+    	padding: 3px 5px;
+    	background: #fff;
+    	border: 1px solid #ccc;
+    }
+    
+    .oneandone table{
+    	border-bottom:1px solid #ccc;
+    	border-top:1px solid #ccc;
+    }
+    
+    .oneandone .firsttr ~ tr td{
+    	border-top:1px solid rgba(204, 204, 204 ,0.3);
+    }
+    
+    .oneandone .firsttr td{
+    	border-top:1px solid #ccc;
+    }
+	
+	#qnatop{
+		width:97%;
+		margin:0px auto;
+		background-color:white;
+	}
+	
+	#qnatop tr td{
+		padding:15px 10px;
+	}
+	
+	#qna{
+		width:97%;
+		margin:0px auto 60px;
+		background-color:white;
+		border-top:1px solid #ccc;
+		border-bottom:1px solid #ccc;
+		border-collapse:collapse;
+	}
+	
+	#qna tr td{
+		padding:15px 10px;
+		border-bottom:1px solid #ccc;
+		font-size:.8em;
+	}
+	
+	#qna tr td:nth-child(1){
+		background-color:#EAECEE;
+		font-weight:bold;
+	}

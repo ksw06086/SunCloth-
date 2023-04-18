@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body{
+		width: 85%;
+		margin: 0 auto;
+	}
+	
+	li{
+        list-style:none;
+	}
+	
+	#header{
+		position:relative;
+		padding:20px 0px 50px 0px;
+		margin: 0 auto;
+	}
+
+	#search_btn {
+		background: url("../ascloimage/icon_search.png") no-repeat;
+		background-size:cover;
+		cursor: pointer;
+		border: none;
+		width: 20px;
+		height: 18px;
+	}
+	div{
+		display:block;
+	}
+	#langage{
+		position:absolute;
+		top:0px;
+		left:0px;
+	}
+	#search{
+		position:absolute;
+		top:0px;
+		right:0px;
+	}
+	#mainname{
+		text-align:center;
+		width:100%;
+		margin:0 auto;
+	}
+	
+	#bottomright{
+		position:absolute;
+		right:0;
+		bottom:5px;
+	}
+	.bottom table tr td {
+    	font-size: .8em;
+    	margin: 0;
+    	padding: 0px 5px 0px;
+	}
+	#bottomleft{
+		position:absolute;
+		left:0;
+		bottom:5px;
+	}
+	
+	.bottom table tr td:hover, .bottom table tr td:focus{
+		opacity: 0.5;
+	}
+	.lnb {
+        overflow:hidden;
+        width:100%; height:40px;
+        border-top:1px solid #cccccc;
+        border-bottom:1px solid #cccccc;
+        padding:5px;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .lnb ul {
+        margin: 0 auto;
+    }
+
+    .lnb li {
+        margin:5px;
+        line-height:25px;
+        display:inline-block;
+        font-size:.8em;
+    }
+
+    .lnb a {
+        color:#282828;
+        font-size:1.1em;
+        padding:10px 15px;
+        text-decoration:none;
+    }
+    
+    
+    
+    
+    
+    
+    #road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    form{
+    	margin: 80px 0px 150px;
+    }
+    
+    fieldset{
+    	width: 380px;
+    	margin: 0 auto;
+    	border: 1px solid #ccc;
+    }
+    
+    fieldset table{
+    	margin: 0 auto;
+    	width: 90%;
+    	padding: 10px 0px;
+		
+    }
+    
+    #login table tr td{
+    	text-align: center;
+    }
+    
+    #orderlookup table tr:nth-child(4) td,
+    #orderlookup table tr:nth-child(5) td,
+    #orderlookup table tr:nth-child(6) td{
+    	 text-align: left;
+    	 font-size:.7em;
+    }
+    
+    #loginbtn{
+    	width: 100%;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+    }
+    
+    #go_join{
+    	width: 100%;
+    	background: #ffffff;
+    	border: 1px solid #000000;
+    	padding: 10px;
+    }
+    
+    input[type = "text"], input[type = "password"]{
+    	padding: 5px 0px;
+    }
+    
+    #idsave{
+    	text-align: left;
+    	font-size:.7em;
+    	padding: 5px 0px 15px 0px;
+    }
+    
+    .bottombtn1{
+    	padding: 5px 0px;
+    	font-size: .7em;
+    }
+    
+    #Lookupbtn{
+    	width: 100%;
+    	color: white;
+    	background: gray;
+    	border: none;
+    	padding: 10px;
+    	font-size: .7em;
+  		margin-top:10px;
+    }
+    
+    
+    
+    
+    
+    
+    
+    div {
+    	display: block;
+    }
+    
+    #foot .footdiv > ul > li{
+    	float: left;
+    	list-style:none; 
+    	font-size:.9em;
+    }
+    
+    .aside > div.m{
+    	float: left;
+    	padding:0px 0px 0px 30px;
+    }
+    
+    #foot{
+    	background: #F2F3F4;
+    	height: 400px;
+    	padding: 50px 0 0 0;
+    	position: static;
+    }
+</style>
+<script type = "text/javascript">
+	// validation check document.폼이름.input태그이름.value // 값이 있는지 없는지
+	function inputCheck() {
+		// 아이디 입력 확인
+		if(!document.loginForm.userid.value){
+			alert("아이디를 입력하세요!!");
+			document.loginForm.userid.focus();
+			return false; // 나를 호출한 곳으로 false를 리턴하면서 동작을 중지
+		}
+		
+		// 패스워드 입력 확인
+		if(!document.loginForm.userpwd.value) {
+			alert("패스워드를 입력하세요!!");
+			document.loginForm.userpwd.focus();
+			return false;
+		}
+	}
+</script>
+</head>
+<body>
+	<header id = "header">
+		<div id = "langage">
+			<img src = "../images/12장/ch.png">
+			<img src = "../images/12장/jp.png">
+			<img src = "../images/12장/us.png">
+		</div>
+		<div id = "search">
+			<input type = "text" id = "search_box" class = "searchall">
+			<button id = "search_btn" class = "searchall"></button>
+		</div>
+		
+		<div id = "mainname">
+			<h2><img src = "../ascloimage/pikachu.png" width = "30px" height = "30px">suncloth</h2>
+		</div>
+		
+		<div id = "bottomleft" class = "bottom">
+			<table>
+				<tr>
+					<td>login</td>
+					<td>join us</td>
+					<td>cart</td>
+					<td>order</td>
+					<td>mypage</td>
+				</tr>
+			</table>
+		</div>
+		<div id = "bottomright" class = "bottom">
+			<table>
+				<tr>
+					<td>notice</td>
+					<td>FAQ</td>
+					<td>Q&A</td>
+					<td>REVIEW</td>
+					<td>membership</td>
+					<td>bookmark</td>
+					<td>delivery</td>
+					<td><img src="../ascloimage/facebook-logo.png" width = "10px" height = "10px"></td>
+					<td><img src="../ascloimage/instagram.png" width = "10px" height = "10px"></td>
+				</tr>
+			</table>
+		</div>
+	</header>
+	
+	<div class="lnb">
+        <ul>
+            <li><a href="#" alt="">only asclo</a></li>
+            <li><a href="#" alt="">best</a></li>
+            <li><a href="#" alt="">outer</a></li>
+            <li><a href="#" alt="">suit</a></li>
+            <li><a href="#" alt="">top</a></li>
+            <li><a href="#" alt="">shirt</a></li>
+            <li><a href="#" alt="">knit</a></li>
+            <li><a href="#" alt="">bottom</a></li>
+            <li><a href="#" alt="">shoes</a></li>
+            <li><a href="#" alt="">acc</a></li>
+            <li><a href="#" alt="">perfect line</a></li>
+            <li><a href="#" alt="">+5cm</a></li>
+            <li><a href="#" alt="">asclo fit</a></li>
+        </ul>
+     </div>
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     <div id = "road">
+		<p>home > membership</p>
+	</div>
+	
+     <form name = "loginForm" action = "" method = "post"
+     onsubmit = "return inputCheck();">
+     	<fieldset>
+     		<table id = "login">
+     			<col style = "width: 500px;">
+     			<col style = "width: 500px;">
+     			<tr>
+     				<td>Registered Customers</td>
+     			</tr>
+     			<tr>
+     				<td style = "font-size:.7em;">가입하신 아이디와 패스워드를 입력해주세요</td>
+     			</tr>
+     			<tr>
+     				<td><br></td>
+     			</tr>
+     			<tr>
+     				<td><input type = "text" id = "userid" style = "width:98.5%;"></td>
+     			</tr>
+     			<tr>
+     				<td><input type = "password" id = "userpwd" style = "width:98.5%;"></td>
+     			</tr>
+     			
+     			<tr>
+     				<td id = "idsave"><input type = "checkbox" id = "useridsave" value = "아이디저장"><label for = "useridsave">아이디 저장</label></td>
+     			</tr>
+     			
+     			<tr>
+     				<td><input type = "submit" id = "loginbtn" value = "로그인"></td>
+     			</tr>
+     			
+     			<tr>
+     				<td><input type = "button" id = "go_join" value = "회원가입하기"></td>
+     			</tr>
+     			
+     			<tr>
+     				<td class = "bottombtn1">아이디찾기 | 비밀번호찾기</td>
+     			</tr>
+     		</table>
+     	</fieldset>
+     	
+     	<fieldset id = "orderlookup" style = "margin-top: 10px;">
+     		<table>
+     			<col style = "width: 400px;">
+     			<col style = "width: 600px;">
+     			<tr>
+     				<td colspan = "2" style = "text-align:center;">비회원 주문조회</td>
+     			</tr>
+     			<tr>
+     				<td style = "font-size:.7em; text-align:center; color: gray;" colspan = "2">비회원의 경우, 주문시의 주문번호로 주문조회가 가능합니다.</td>
+     			</tr>
+     			<tr>
+     				<td colspan = "2"><br></td>
+     			</tr>
+     			<tr>
+     				<td><img src = "../ascloimage/pikachu.png" width = "10px" height = "10px" style = "vertical-align:center;">
+     				주문자명
+     				</td>
+     				<td><input type = "text" id = "orderguestname" style = "width:98%;"></td>
+     			</tr>
+     			
+     			<tr>
+     				<td><img src = "../ascloimage/pikachu.png" width = "10px" height = "10px" style = "vertical-align:center;">
+     				주문번호
+     				</td>
+     				<td><input type = "text" id = "ordernum1" style = "width:44%;">
+     				 - <input type = "text" id = "ordernum2" style = "width:44%;"></td>
+     			</tr>
+     			
+     			<tr>
+     				<td><img src = "../ascloimage/pikachu.png" width = "10px" height = "10px" style = "vertical-align:center;">
+     				비회원주문 비밀번호
+     				</td>
+     				<td><input type = "password" id = "orderpwd" style = "width:98%;"></td>
+     			</tr>
+     			
+     			<tr>
+     				<td colspan = "2"><input type = "submit" id = "Lookupbtn" value = "조회"></td>
+     			</tr>
+     		</table>
+     	</fieldset>
+     </form>
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     <footer id = "foot">
+		<div class = "footdiv">
+			<ul>
+				<li>
+					<div class = "aboutus">
+						<ul>
+							<li>ABOUT US</li><br>
+							<li>company.애즈클로</li>
+							<li>tel.032-1234-5678 email.k-sunwo@naver.com</li>
+							<li>business no.204-29-34817</li>
+							<li>mail order license.2019-서울동대문-0071호[사업자정보확인]</li>
+							<li>address.[02586] 서울특별시 성동구 청계천로 468 3층</li>
+							<br>
+							<li><b>[교환/반품 주소지]</b></li>
+							<li>서울특별시 동대문구 난계로30길 23 (신설동) 7층</li>
+							<li>CJ대한통운 택배고객센터 : 1588-1255</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class = "cscenter">
+						<ul>
+							<li>C/S CENTER</li><br>
+							<li>070-1234-5678</li>
+							<li>MON - FRI : 10AM-4:30PM</li>
+							<li>LUNCH : 12:30AM-1:30PM</li>
+							<li>SAT SUN HOLIDAT OFF</li>
+							<br>
+							<li><b>[무통장 계좌 안내]</b></li>
+							<li>KB국민 123456-01-123456</li>
+							<li>예금주 : 김선우(선클로)</li>
+							<br>
+							<li><b>[반품 계좌 안내]</b></li>
+							<li>KB국민 123456-01-123456</li>
+							<li>예금주 : 김선우(선클로)</li>
+						</ul>
+					</div>
+				</li>
+		
+				<li>
+					<div class = "aside">
+						<div class = "m">
+							<ul>
+								<li>COMMUNITY</li>
+								<BR>
+								<li>NOTICE</li>
+								<li>FAQ</li>
+								<li>Q&A</li>
+								<li>REVIEW</li>
+								<li>MEMBERSHIP</li>
+							</ul>
+						</div>
+						<div class = "m">
+							<ul>
+								<li>MEMBERSHIP</li>
+								<BR>
+								<li>회원가입</li>
+								<li>아이디 찾기</li>
+								<li>비밀번호 찾기</li>
+								<li>주문조회 바로가기</li>
+								<li>최근 본 상품</li>
+							</ul>
+						</div>
+						<div class = "m">
+							<ul>
+								<li>SHOP GUIDE</li>
+								<BR>
+								<li>홈으로</li>
+								<li>회사소개</li>
+								<li>이용약관안내</li>
+								<li>개인정보취급방침</li>
+								<li>이용안내</li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,57 @@
+@charset "UTF-8";
+#road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+
+    fieldset{
+    	width: 380px;
+    	margin: 0 auto;
+    	border: 1px solid #ccc;
+    }
+    
+    fieldset table{
+    	margin: 0 auto;
+    	width: 90%;
+    	padding: 10px 0px;
+		
+    }
+    
+    fieldset table tr td{
+    	text-align: center;
+    }
+    
+    #loginbtn{
+    	width: 100%;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+    }
+    
+    #go_join{
+    	width: 100%;
+    	background: #ffffff;
+    	border: 1px solid #000000;
+    	padding: 10px;
+    }
+    
+    #userid{
+    	padding: 5px 0px;
+    }
+    
+    #userpwd{
+    	padding: 5px 0px;
+    }
+    
+    #idsave{
+    	text-align: left;
+    	font-size:.8em;
+    	padding: 5px 0px 15px 0px;
+    }
+    
+    .bottombtn1{
+    	padding: 5px 0px;
+    	font-size: .7em;
+    }

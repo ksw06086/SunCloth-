@@ -1,0 +1,67 @@
+#road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #topnamesub{
+    	text-align: center;
+    	font-size: .75em;
+    	color:gray;
+    }
+    
+    form{
+    	margin: 80px 0px 150px;
+    }
+    
+    fieldset{
+    	width: 1000px;
+    	margin: 0 auto;
+    	border: 1px solid #ccc;
+    }
+    
+    fieldset table{
+    	margin: 0 auto;
+    	width: 90%;
+    	padding: 10px 0px;
+		
+    }
+    
+    fieldset table tr td{
+    	text-align: center;
+    }
+    
+    #loginbtn{
+    	width: 100%;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 10px;
+    }
+    
+    #userid{
+    	padding: 5px 0px;
+    }
+    
+    #userpwd{
+    	padding: 5px 0px;
+    }
+    
+    #idsave{
+    	text-align: left;
+    	font-size:.8em;
+    	padding: 5px 0px 15px 0px;
+    }
+    
+    .bottombtn1{
+    	padding: 5px 0px;
+    	font-size: .7em;
+    }

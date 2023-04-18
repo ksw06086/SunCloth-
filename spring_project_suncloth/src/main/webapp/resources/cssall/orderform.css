@@ -1,0 +1,259 @@
+#road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #service{
+    	margin: 30px 0px;
+    }
+    
+    #service tr td{
+    	padding: 10px 0px;
+    }
+    
+    #orderlist{
+    	text-align: center;
+    	font-size: .7em;
+    	width: 100%;
+    }
+    
+    .orderprd td{
+    	border-bottom: 1px solid rgba(204, 204, 204,0.5);
+    	text-align:center;
+    }
+    
+    .orderbtm td{
+    	padding: 10px 0px 0px;
+    }
+    
+    #delilist{
+    	margin: 0px 0px 50px;
+    	width:100%;
+    	border-collapse:collapse;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    }
+    
+    #delilist tr td:nth-child(1){
+    	border-right:1px solid #ccc;
+    }
+    
+    #delilist tr td{
+    	border-bottom: 1px solid #ccc;
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    input[type = "checkbox"]{
+    	vertical-align:middle;
+    }
+    
+    input[type = "radio"]{
+    	vertical-align:-18%;
+    }
+    
+    #message{
+    	margin: 0px 0px 50px;
+    	width:100%;
+    	border-collapse:collapse;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    }
+    
+    #message tr td:nth-child(1){
+    	border-right:1px solid #ccc;
+    }
+    
+    #message tr td{
+    	border-bottom: 1px solid #ccc;
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    #title td{
+    	border-bottom: 1px solid #ccc;
+    	padding: 10px 0px;
+    }
+    
+    #total{
+    	width: 100%;
+    	border-collapse:collapse;
+    	text-align: center;
+    }
+    
+    #total tr td{
+    	border-top: 1px solid #ccc;
+    }
+    
+    #Ttitle td{
+    	padding:15px 0px;
+    	font-size:.7em;
+    	font-weight: bold;
+    }
+    
+    #Tsmry td{
+    	padding: 30px 0px;
+    	font-size: 25px;
+    }
+    
+    #salepay{
+    	margin: 0px 0px 50px;
+    	width:100%;
+    	border-collapse:collapse;
+    	border-bottom: 1px solid #ccc;
+    	border-top: 1px solid #ccc;
+    }
+    
+    #salepay tr td:nth-child(1){
+    	border-right:1px solid #ccc;
+    }
+    
+    #saletotal td{
+    	border-bottom: 1px solid #ccc;
+    	font-weight:bold;
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    #saleplus td{
+    	border-bottom: 1px solid #ccc;
+    	font-weight:bold;
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    #plusmoney td{
+    	padding:9px 12px;
+    	font-size:.75em;
+    }
+    
+    #paytop{
+    	margin: 0px 0px 10px;
+    	width:100%;
+    }
+    
+    #paytop tr td:nth-child(1){
+    	font-size:.8em;
+    }
+    
+    #paytop tr td:nth-child(2){
+    	font-size:.75em;
+    }
+    
+    #payway{
+    	margin: 0px 0px 50px;
+    	width:100%;
+    	border-collapse:collapse;
+    	border: 1px solid #ccc;
+    }
+    
+    #paywaytop > td:nth-child(1){
+    	padding:9px 12px;
+    	font-weight:bold;
+    	font-size:.75em;
+    	border-bottom:1px solid #ccc;
+    	border-right:1px solid #ccc;
+    }
+    
+    #paywaybtm > td:nth-child(1){
+    	padding:15px 12px;
+    	border-right:1px solid #ccc;
+    	vertical-align:top;
+    }
+    
+    #mu, #card{
+    	font-size:.75em;
+    	border-collapse:collapse;
+    	width:100%;
+    }
+    
+    #mu tr td{
+    	padding:15px 12px;
+    	border-top:1px solid #ccc;
+    }
+    
+    #mu tr:nth-child(1) td:nth-child(1),
+    #mu tr:nth-child(2) td:nth-child(1){
+    	border-right:1px solid #ccc;
+    }
+    
+    #card{
+    	display:none;
+    }
+    
+    
+    #lasttop td{
+    	text-align:right;
+    	font-size:.75em;
+    	padding:9px 6px;
+    }
+    
+    #lastpaychk td:nth-child(1){
+    	text-align:center;
+    	font-size:.9em;
+    	padding:9px 0px;
+    }
+    
+    #lastpaychk td:nth-child(2){
+    	text-align: right;
+    	font-size: 30px;
+    	padding:9px 6px;
+    	font-weight:bold;
+    }
+    
+    #chkagree td{
+    	font-size:.65em;
+    	padding:9px 6px;
+    }
+    
+    #pay{
+    	width:100%;
+    	padding: 10px 0px;
+    	background: #282828;
+    	color: white;
+    	border: 1px solid #ccc;
+    	font-size: .8em;
+    }
+    
+    .lastbtm td{
+    	text-align:right;
+    	font-size:.8em;
+    	padding:9px 6px;
+    }
+    
+    #btm1 td{
+    	border-top:1px solid #ccc;
+    }
+    
+    #btm2 td{
+    	border-top:1px solid #ccc;
+    }
+    
+    #bankgo, #detail, #paylist, .before, #checkdel,
+    #address, #useraddress{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: 1px solid #bbb;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: #353535;
+	    background-color: #fff;
+	    transition: all 0.15s ease;
+    }

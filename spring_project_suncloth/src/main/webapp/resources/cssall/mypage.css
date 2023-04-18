@@ -1,0 +1,161 @@
+@charset "UTF-8";
+#topnamesub{
+    	margin-top: 15px;
+    	text-align: center;
+    	font-size: .75em;
+    	color: gray;
+    }
+    
+    #road{
+    	text-align:right;
+    	font-size:.8em;
+    	color:#ccc;
+    }
+    
+    #topname{
+    	text-align: center;
+    }
+    
+    #topname p b{
+    	border-bottom: 3px solid #ccc;
+    }
+    
+    #topsummary{
+    	border-collapse:collapse;
+    	font-size:.7em;
+    	width: 100%;
+    }
+    
+    #topsummary > table{
+    	border: 1px solid #ccc;
+    }
+    
+    #topsub{
+    	padding: 5px 12px;
+    }
+    
+    #linkcopy{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: 1px solid #bbb;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    color: #fff;
+	    background-color: #282828;
+	    transition: all 0.15s ease;
+    }
+    
+    .select{
+    	box-sizing: border-box;
+	    padding: 2px 8px;
+	    border: 1px solid #bbb;
+	    border-radius: 0;
+	    font-size: 11px;
+	    line-height: 18px;
+	    font-weight: normal;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    word-spacing: -0.5px;
+	    letter-spacing: 0;
+	    text-align: center;
+	    white-space: nowrap;
+	    background-color: #fff;
+	    transition: all 0.15s ease;
+    }
+    
+    #referencemenu{
+    	width:100%;
+    	margin: 30px 0px 30px;
+    }
+    
+    #referencemenu table{
+    	width:100%;
+    	border-collapse:collapse;
+    	border:1px solid #ccc;
+    	border-top: 3px solid #282828;
+    	text-align:center;
+    	font-size: .8em;
+    	align:center;
+    }
+    
+    #referencemenu table tr td{
+    	border:1px solid #ccc;
+    	padding: 10px 0px;
+    	line-height: 27px;
+    }
+    
+    #paymenu{
+    	width: 100%;
+    }
+    
+    #paymenu table{
+    	width: 100%;
+    	border: 1px solid #ccc;
+    	font-size: .8em;
+    	padding: 10px;
+    }
+    
+    #paymenu table tr td:nth-child(3){
+    	border-right:1px solid #ccc;
+    }
+    
+    #paymenu table tr td:nth-child(2), #paymenu table tr td:nth-child(5){
+    	text-align: right;
+    }
+    
+    #paymenu table tr td:nth-child(3), #paymenu table tr td:nth-child(6){
+    	text-align: right;
+    }
+    
+    #paymenu table tr td{
+    	padding: 5px 30px;
+    	
+    }
+    
+    #mystate{
+    	width:100%;
+    	margin: 30px 0px 120px;
+    }
+    
+    #mystate table{
+    	width: 100%;
+    	border: 1px solid #ccc;
+    	font-size: .8em;
+    }
+    
+    #mystate table:nth-child(1){
+    	padding: 10px 10px;
+    }
+    
+    #mystate table:nth-child(2){
+    	padding: 20px 0px;
+    }
+    
+    #mystate table:nth-child(2) tr td{
+    	border-right:1px solid #ccc;
+    	text-align:center;
+    }
+    
+    #gomain{
+    	width: 150px;
+    	color: white;
+    	background: #000000;
+    	border: none;
+    	padding: 15px;
+    	font-size:.8em;
+    }
+    
+    #thankstext{
+    	margin-top: 10px;
+    	text-align: center;
+    	font-size: .75em;
+    	color:gray;
+    }

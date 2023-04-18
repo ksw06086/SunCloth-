@@ -1,0 +1,66 @@
+#righttop{
+		position:relative;
+		text-align:center;
+		width:100%;
+		margin: 15px 0px;
+	}
+	
+	#righttop p{
+		margin:0px;
+		padding:0px;
+		font-size:1.5em;
+	}
+	
+	#righttop p:nth-child(1){
+		position:absolute;
+		top:0px;
+		left:20px;
+	}
+	
+	#righttop p:nth-child(3){
+		position:absolute;
+		top:0px;
+		right:20px;
+	}
+	
+	#save{
+    	width: 100px;
+    	color: white;
+    	background-color: #7FB3D5;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#boardlist{
+		width: 160px;
+    	color: white;
+    	background: gray;
+    	border: none;
+    	padding: 10px;
+	}
+	
+	#product{
+		background-color: white;
+		width:97%;
+		margin:0px auto;
+	}
+	
+	#faq{
+		width:97%;
+		margin:0px auto;
+		background-color:white;
+		border-top:1px solid #ccc;
+		border-bottom:1px solid #ccc;
+		border-collapse:collapse;
+	}
+	
+	#faq tr td{
+		padding:15px 10px;
+		border-bottom:1px solid #ccc;
+		font-size:.8em;
+	}
+	
+	#faq tr td:nth-child(1){
+		background-color:#EAECEE;
+		font-weight:bold;
+	}
